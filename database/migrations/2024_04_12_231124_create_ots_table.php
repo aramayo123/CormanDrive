@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('estado')->nullable();
             $table->string('presupuesto')->nullable();
             $table->integer('combustible')->nullable();
+            $table->integer('certificado')->nullable();
             $table->timestamps();
         });
     }

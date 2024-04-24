@@ -1,17 +1,17 @@
 <?php 
-    $lista_sucursales = [
-        "100 BELGRANO 549", "100 SELECTA 459 - PISO 3", "127 ESPAÑA 550", "100 BELGRANO 1345", 
-        "100 ESPAÑA 625", "100 ALVARADO 746", "109 ESPAÑA 421", "811 TUCUMAN 441", "110 LOS CHARCHALEROS 4705",
-        "136 TAVELLA Y EX COM MALVINAS", "100 CAMPO CASTAÑARES S/N", "133 AV. DEL BICENTENARIO DE LA B. DE SALTA",
-        "137 BATALLA DE SALTA 352", "137 BATALLA DE SALTA 352", "137 BATALLA DE SALTA 352", "120 GRAL. GÜEMES 651",
-        "130 C.PELEGRINI 502", "114 MITRE 991", "149 HIPOLITO IRIGOYEN 524", "152 AV. PARAGUAY 1250", "151 AV. HOUSSAY S/N LOCAL 20",
-        "174 AV. BOLIVIA 4671", "170 AV. BELGRANO  683", "109 VILLA SAN LORENZO", "173 FEDERICO LACROZE 4075",
-        "175 9 DE JULIO ESQ BOLIVIA", "121 GRAL. GÜEMES Nº 110", "125 SARMIENTO 97", "109 ESTACION GRAL ALVARADO",
-        "150 ESTACION ZUVIRIA S/N", "101 ALBERRDI 413", "107 GÜEMES ESTE 217", "104 MELCHORA CORNEJO 308",
-        "113 BARTOLOMÉ MIGRE 22", "115 AV. GRAL GUEMES S/N", "129 AV. GRAL. MANUEL BELGRANO", "124 SAN MARTÍN 315",
-        "106 GÜEMES 100", "105 SAN MARTÍN 301", "172 SAN MARTÍN 301", "139 CIRO ETCHESORTU 52", "128 JUAN BAUTISTA ALBERDI 105",
-        "108 BELGRANO 498", "102 24 DE SEPTIEMBRE 398", "116 AV. TUCUMAN ESQ AV. PUCARÁ", "103 25 DE MAYO 284",
-        "171 ALVARADO ESQ 20 DE FEBRERO", "117 SAN MARTÍN 523", "153 GRAL. GÜEMES 259"
+   $lista_sucursales = [
+        "100 SALTA", "100 SELECTA", "127 PLAZA EMPRESAS", "100 IPDUV", 
+        "100 RENTAS SALTA", "100 ALVARADO", "109 ESPAÑA", "811 CALL CENTER", "110 MALVINAS ARGENTINAS",
+        "136 LIMACHE", "100 UCASAL", "133 ALTO NOA SHOPPING",
+        "137 CIUDAD DEL MILAGRO", "120 BATALLA DE SALTA",
+        "130 PELEGRINI", "114 NORTE", "149 TERMINAL", "152 CIUDAD MUNICIPAL", "151 CIUDAD JUDICIAL",
+        "174 TRIBUNALES", "170 PLAZA BELGRANO", "109 EL PUNTO", "173 GRAND BOURG",
+        "175 SAN LORENZO", "121 CERRILLOS", "125 ROSARIO DE LA LERMA", "109 CO.PRO.TAB",
+        "150 EL CARRIL", "101 GENERAL GÜEMES", "107 METAN", "104 ROSARIO DE LA FRONTERA",
+        "113 CAFAYATE", "115 CACHI", "129 SAN ANTONIO DE LOS COBRES", "124 LAS LAJITAS",
+        "106 JOAQUIN V. GONZALEZ", "105 TARTAGAL", "172 LOS TÁRTAGOS", "139 GENERAL MOSCONI", "128 AGUARAY",
+        "108 POCITOS", "102 EMBARCACION", "116 PICHANAL", "103 ORAN",
+        "171 SAN RAMON", "117 COLONIA SANTA ROSA"
     ]
 ?>
     @include('layouts.header')
@@ -105,6 +105,12 @@
                     @error('fecha')
                         <p class="pt-4 text-red-500">{{ $message }}</p>
                     @enderror
+                </div>
+                <div class="text-center mx-auto my-6">
+                    <div class="flex items-center justify-center">
+                        <input type="checkbox" <?php echo $preventivo->certificado ? "checked":""; ?> value="1" id="certificado" name="certificado" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                        <label for="certificado" class="ms-2 text-sm font-medium text-gray-300">CERTIFICADO</label>
+                    </div>
                 </div>
                 <div class="mx-auto text-center">
                     <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium focus:outline-none rounded-lg border focus:z-10 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700">ACTUALIZAR</button>

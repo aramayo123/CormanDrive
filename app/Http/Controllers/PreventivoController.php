@@ -77,7 +77,7 @@ class PreventivoController extends Controller
         Gdrive::makeDir('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal);
         $url = Storage::disk('google')->url('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal);
         $preventivo->url_carpeta = $url;
-
+        $preventivo->certificado = $request->certificado ? $request->certificado:0;
         $preventivo->save();
 
         return redirect()->route('index')->with('exito', 'Preventivo creado con exito!!');
@@ -132,6 +132,7 @@ class PreventivoController extends Controller
         }
         $preventivo->personal_asignado = $arr_personal[0][1]." ".$arr_personal[1][1]." ".$arr_personal[2][1]." ".$arr_personal[3][1];
         $preventivo->observaciones = $request->observaciones;
+        $preventivo->certificado = $request->certificado ? $request->certificado:0;
         $preventivo->update();
 
         return redirect()->route('index')->with('exito', 'Preventivo modificado con exito!!');

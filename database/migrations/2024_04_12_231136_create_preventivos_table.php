@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('observaciones')->nullable();
             $table->string('personal_asignado')->nullable();
             $table->string('url_carpeta')->nullable();
+            $table->integer('certificado')->nullable();
             $table->timestamps();
         });
     }

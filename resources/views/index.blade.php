@@ -6,27 +6,7 @@
 
     $arr_personal = ["DIEGO ARAMAYO","LUIS ARAMAYO","ALEJANDRO SAJAMA","CESAR ARAMAYO"];
 @endphp
-
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-    }
-  </style>
-  
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-  <link rel="icon" href="{{ asset('/img/corman_srl_logo.ico') }}">
-</head>
-<body>
-   
+@include('layouts.header')
     <div class="bg-gray-900 p-3 sm:p-5 antialiased" style="min-height: 688px;"> 
         <div class="mx-auto text-center mt-2 mb-6">
             <h1 class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">CORMAN FALICITIES S.R.L</h1>
@@ -101,6 +81,9 @@
                             <th scope="col" class="px-3 py-3">
                                 FOTOS
                             </th>
+                            <th scope="col" class="px-3 py-3">
+                                CERTIFICADO
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,13 +135,8 @@
                                 <a href="{{ $remedit->url_carpeta }}" target="_blank" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">DRIVE</a>
                             </td>
                             <td class="px-3 py-4">
-                                @if ($remedit->estado == 'ABIERTO')
-                                    <p><span class="bg-green-900 text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ $remedit->estado }}</span></p>                             
-                                @elseif ($remedit->estado == 'PENDIENTE')
-                                    <p><span class="bg-yellow-900 text-yellow-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ $remedit->estado }}</span></p>
-                                @else
-                                <p><span class="bg-red-900 text-red-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ $remedit->estado }}</span></p>
-                                @endif
+                                <?php $color = $remedit->estado == 'ABIERTO' ? "green":($remedit->estado == 'CERRADO' ? "red":"yellow"); ?>
+                                <p><span class="text-<?php echo $color; ?>-300 text-sm font-medium me-2 py-0.5 rounded">{{ $remedit->estado }}</span></p>
                             </td>
                             <td class="px-3 py-4">
                                 <form action="{{ url('/upload_f_ot') }}" method="post">
@@ -167,6 +145,11 @@
                                     <input type="hidden" name="fecha_abierto" id="" value="{{ $remedit->fecha_abierto }}">
                                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir fotos</button>
                                 </form>
+                            </td>
+                            <td class="px-3 py-4">
+                                <?php $color = $remedit->certificado ? "green":"red"; ?>
+                                <?php $palabra = $remedit->certificado ? "SI":"NO"; ?>
+                                <p><span class="bg-<?php echo $color; ?>-700 text-<?php echo $color; ?>-300 text-sm font-medium me-2 py-0.5 rounded p-1">{{ $palabra }}</span></p>
                             </td>
                         </tr>
                         @endforeach
@@ -225,6 +208,9 @@
                             <th scope="col" class="px-3 py-3">
                                 FOTOS
                              </th>
+                             <th scope="col" class="px-3 py-3">
+                                CERTIFICADO
+                             </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -272,6 +258,11 @@
                                     <input type="hidden" name="fecha" id="" value="{{ $preventivo->fecha }}">
                                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir fotos</button>
                                 </form>
+                            </td>
+                            <td class="px-3 py-4">
+                                <?php $color = $preventivo->certificado ? "green":"red"; ?>
+                                <?php $palabra = $preventivo->certificado ? "SI":"NO"; ?>
+                                <p><span class="bg-<?php echo $color; ?>-700 text-<?php echo $color; ?>-300 text-sm font-medium me-2 py-0.5 rounded p-1">{{ $palabra }}</span></p>
                             </td>
                         </tr>
                         @endforeach

@@ -83,6 +83,7 @@ class OtController extends Controller
         $remedit->url_carpeta = $url;
         $remedit->estado = $request->estado;
         $remedit->combustible = ($request->combustible) ? $request->combustible:0;
+        $remedit->certificado = $request->certificado ? $request->certificado:0;
         $remedit->save();
 
         return redirect()->route('index')->with('exito', 'Remedit creado con exito!!');
@@ -156,6 +157,7 @@ class OtController extends Controller
         $remedit->fecha_abierto = $request->fecha_abierto;
         $remedit->fecha_cerrado = $request->fecha_cerrado;
         $remedit->estado = $request->estado;
+        $remedit->certificado = $request->certificado ? $request->certificado:0;
         //$remedit->combustible = ($request->combustible) ? $request->combustible:0;
         $remedit->update();
         return redirect()->route('index')->with('exito', 'Remedit modificado con exito!!');

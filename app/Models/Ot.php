@@ -26,5 +26,6 @@ class Ot extends Model
         'estado',
         'presupuesto',
         'combustible',
+        'certificado',
     ];
 }

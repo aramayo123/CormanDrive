@@ -17,5 +17,6 @@ class Preventivo extends Model
         'observaciones',
         'personal_asignado',
         'url_carpeta',
+        'certificado',
     ];
 }
