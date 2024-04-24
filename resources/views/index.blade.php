@@ -287,9 +287,28 @@
     </div>
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('eliminar_ot') == 'ok')
+    <script>
+         Swal.fire({
+            title: "Eliminado!",
+            text: "Su OT ha sido eliminado con exito!.",
+            icon: "success"
+        });
+    </script>
+@endif
 
+@if(session('eliminar_preventivo') == 'ok')
+    <script>
+         Swal.fire({
+            title: "Eliminado!",
+            text: "Su PREVENTIVO ha sido eliminado con exito!.",
+            icon: "success"
+        });
+    </script>
+@endif
 <script>
-
+    
     function EliminarOt(e){
         if(!e.children[2].type == 'button')
             return
@@ -297,9 +316,23 @@
         const rutaBase = "{{ env('APP_URL') }}";
         if(e.action == rutaBase+'/')
             return
+        
+        e.children[2].setAttribute('type', 'button');
 
-        e.children[2].setAttribute('type', 'submit');
-        e.submit();
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "No podrás revertir esto.!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, eliminar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    e.children[2].setAttribute('type', 'submit');
+                    e.submit();
+                }
+        });
     }
     function EditarBorrarOt(id){
         var boton_editar = document.querySelector("#boton_editar_ot");
@@ -332,8 +365,23 @@
         if(e.action == rutaBase+'/')
             return
 
-        e.children[2].setAttribute('type', 'submit');
-        e.submit();
+        
+        e.children[2].setAttribute('type', 'button');
+
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "No podrás revertir esto.!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, eliminar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    e.children[2].setAttribute('type', 'submit');
+                    e.submit();
+                }
+        });
     }
     function EditarBorrarPreventivo(id){
         var boton_editar = document.querySelector("#boton_editar_preventivo");

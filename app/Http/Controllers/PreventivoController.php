@@ -155,12 +155,12 @@ class PreventivoController extends Controller
         Gdrive::deleteDir("PLANILLA PREVENTIVOS/".$mesActual."/".$preventivo->sucursal);
 
         Preventivo::destroy($id);
-        return redirect()->route('index')->with('exito', 'El preventivo ha sido eliminado con exito!');
+        return redirect()->route('index')->with('eliminar_preventivo', 'ok');
     }
     public function FotosPreventivo(FotoRequest $request){
         if($request->hasFile('fotos_preventivo')){
             $this->GuardarFoto($request, "", "fotos_preventivo");
-            return response()->json(['message' => $request->file('fotos_preventivo')->getClientOriginalName()]);
+            return response()->json(['message' => 'Archivo agregado con exito.']);
         }
         return response()->json(['message' => 'Archivo no recibido.'], 400);
     }

@@ -171,7 +171,7 @@ class OtController extends Controller
         Gdrive::deleteDir("OTS/".$remedit->remedit);
 
         Ot::destroy($id);
-        return redirect()->route('index')->with('exito', 'El remedit ha sido eliminado con exito!');
+        return redirect()->route('index')->with('eliminar_ot', 'ok');
     }
     
     public function FotoAntes(FotoRequest $request){
@@ -218,7 +218,8 @@ class OtController extends Controller
         //Log::notice($imagen);
         /** @var \Illuminate\Http\UploadedFile $disk */
         $disk = Storage::disk('google');
-        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+        //$filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+        $filename = $file->getClientOriginalName();
         $disk->putFileAs($carpeta, $file, $filename);
         // $url = $disk->url($carpeta."/".$filename); // url de la imagen
 

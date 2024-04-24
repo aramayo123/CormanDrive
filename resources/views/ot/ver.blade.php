@@ -175,10 +175,10 @@
                   <p>FECHA DE CIERRE:</p>
                 </div>
                 <div class="text-white p-2 mx-[1px] break-all w-5/6">
-                  @if (!$remedit->fecha_cierre)
+                  @if (!$remedit->fecha_cerrado)
                    <p><span class=" text-red-300 text-sm font-medium me-2 py-0.5 rounded">SIN FECHA</span></p>
                   @else
-                    <p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">{{ $remedit->fecha_abierto }}</span></p>
+                    <p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">{{ $remedit->fecha_cerrado }}</span></p>
                   @endif
                 </div>
               </div>
@@ -199,7 +199,8 @@
                   <p>ESTADO:</p>
                 </div>
                 <div class="text-white p-2 mx-[1px] break-all w-5/6">
-                  <p>{{ $remedit->estado }}</p>
+                  <?php $color = $remedit->estado == 'ABIERTO' ? "green":($remedit->estado == 'CERRADO' ? "red":"yellow"); ?>
+                  <p><span class="text-<?php echo $color; ?>-300 text-sm font-medium me-2 py-0.5 rounded">{{ $remedit->estado }}</span></p>
                 </div>
               </div>
               <hr class="mx-[1px]">
@@ -337,10 +338,10 @@
                   <p>FECHA DE CIERRE:</p>
                 </div>
                 <div class="text-white p-2 mx-[1px] break-all w-full">
-                  @if (!$remedit->fecha_cierre)
+                  @if (!$remedit->fecha_cerrado)
                    <p><span class=" text-red-300 text-sm font-medium me-2 py-0.5 rounded">SIN FECHA</span></p>
                   @else
-                    <p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">{{ $remedit->fecha_abierto }}</span></p>
+                    <p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">{{ $remedit->fecha_cerrado }}</span></p>
                   @endif
                 </div>
               </div>
@@ -361,7 +362,8 @@
                   <p>ESTADO:</p>
                 </div>
                 <div class="text-white p-2 mx-[1px] break-all w-full">
-                  <p>{{ $remedit->estado }}</p>
+                  <?php $color = $remedit->estado == 'ABIERTO' ? "green":($remedit->estado == 'CERRADO' ? "red":"yellow"); ?>
+                  <p><span class="text-<?php echo $color; ?>-300 text-sm font-medium me-2 py-0.5 rounded">{{ $remedit->estado }}</span></p>
                 </div>
               </div>
               <hr class="mx-[1px]">

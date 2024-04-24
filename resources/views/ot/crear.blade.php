@@ -1,3 +1,20 @@
+<?php 
+    $lista_sucursales = [
+        "100 BELGRANO 549", "100 SELECTA 459 - PISO 3", "127 ESPAÑA 550", "100 BELGRANO 1345", 
+        "100 ESPAÑA 625", "100 ALVARADO 746", "109 ESPAÑA 421", "811 TUCUMAN 441", "110 LOS CHARCHALEROS 4705",
+        "136 TAVELLA Y EX COM MALVINAS", "100 CAMPO CASTAÑARES S/N", "133 AV. DEL BICENTENARIO DE LA B. DE SALTA",
+        "137 BATALLA DE SALTA 352", "137 BATALLA DE SALTA 352", "137 BATALLA DE SALTA 352", "120 GRAL. GÜEMES 651",
+        "130 C.PELEGRINI 502", "114 MITRE 991", "149 HIPOLITO IRIGOYEN 524", "152 AV. PARAGUAY 1250", "151 AV. HOUSSAY S/N LOCAL 20",
+        "174 AV. BOLIVIA 4671", "170 AV. BELGRANO  683", "109 VILLA SAN LORENZO", "173 FEDERICO LACROZE 4075",
+        "175 9 DE JULIO ESQ BOLIVIA", "121 GRAL. GÜEMES Nº 110", "125 SARMIENTO 97", "109 ESTACION GRAL ALVARADO",
+        "150 ESTACION ZUVIRIA S/N", "101 ALBERRDI 413", "107 GÜEMES ESTE 217", "104 MELCHORA CORNEJO 308",
+        "113 BARTOLOMÉ MIGRE 22", "115 AV. GRAL GUEMES S/N", "129 AV. GRAL. MANUEL BELGRANO", "124 SAN MARTÍN 315",
+        "106 GÜEMES 100", "105 SAN MARTÍN 301", "172 SAN MARTÍN 301", "139 CIRO ETCHESORTU 52", "128 JUAN BAUTISTA ALBERDI 105",
+        "108 BELGRANO 498", "102 24 DE SEPTIEMBRE 398", "116 AV. TUCUMAN ESQ AV. PUCARÁ", "103 25 DE MAYO 284",
+        "171 ALVARADO ESQ 20 DE FEBRERO", "117 SAN MARTÍN 523", "153 GRAL. GÜEMES 259"
+    ]
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -97,53 +114,9 @@
                         <div class="my-3">
                             <select id="sucursal" name="sucursal" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                                 <option selected value="">SELECCIONAR SUCURSAL</option>
-                                <option value="100 BELGRANO 549">100 BELGRANO 549</option>
-                                <option value="100 SELECTA 459 - PISO 3">100 SELECTA 459 - PISO 3</option>
-                                <option value="127 ESPAÑA 550">127 ESPAÑA 550</option>
-                                <option value="100 BELGRANO 1345">100 BELGRANO 1345</option>
-                                <option value="100 ESPAÑA 625">100 ESPAÑA 625</option>
-                                <option value="100 ALVARADO 746">100 ALVARADO 746</option>
-                                <option value="109 ESPAÑA 421">109 ESPAÑA 421</option>
-                                <option value="811 TUCUMAN 441">811 TUCUMAN 441</option>
-                                <option value="110 LOS CHARCHALEROS 4705">110 LOS CHARCHALEROS 4705</option>
-                                <option value="136 TAVELLA Y EX COM MALVINAS">136 TAVELLA Y EX COM MALVINAS</option>
-                                <option value="100 CAMPO CASTAÑARES S/N">100 CAMPO CASTAÑARES S/N</option>
-                                <option value="133 AV. DEL BICENTENARIO DE LA B. DE SALTA">133 AV. DEL BICENTENARIO DE LA B. DE SALTA</option>
-                                <option value="137 BATALLA DE SALTA 352">137 BATALLA DE SALTA 352</option>
-                                <option value="120 GRAL. GÜEMES 651">120 GRAL. GÜEMES 651</option>
-                                <option value="130 C.PELEGRINI 502">130 C.PELEGRINI 502</option>
-                                <option value="114 MITRE 991">114 MITRE 991</option>
-                                <option value="149 HIPOLITOT IRIGOYEN 524">149 HIPOLITOT IRIGOYEN 524</option>
-                                <option value="152 AV. PARAGUAY 1250">152 AV. PARAGUAY 1250</option>
-                                <option value="151 AV. HOUSSAY S/N LOCAL 20">151 AV. HOUSSAY S/N LOCAL 20</option>
-                                <option value="174 AV. BOLIVIA 4671">174 AV. BOLIVIA 4671</option>
-                                <option value="170 AV. BELGRANO  683">170 AV. BELGRANO  683</option>
-                                <option value="109 VILLA SAN LORENZO">109 VILLA SAN LORENZO</option>
-                                <option value="173 FEDERICO LACROZE 4075">173 FEDERICO LACROZE 4075</option>
-                                <option value="175 9 DE JULIO ESQ BOLIVIA">175 9 DE JULIO ESQ BOLIVIA</option>
-                                <option value="121 GRAL. GÜEMES Nº 110">121 GRAL. GÜEMES Nº 110</option>
-                                <option value="125 SARMIENTO 97">125 SARMIENTO 97</option>
-                                <option value="109 ESTACION GRAL ALVARADO">109 ESTACION GRAL ALVARADO</option>
-                                <option value="150 ESTACION ZUVIRIA S/N">150 ESTACION ZUVIRIA S/N</option>
-                                <option value="101 ALBERRDI 413">101 ALBERRDI 413</option>
-                                <option value="107 GÜEMES ESTE 217">107 GÜEMES ESTE 217</option>
-                                <option value="104 MELCHORA CORNEJO 308">104 MELCHORA CORNEJO 308</option>
-                                <option value="113 BARTOLOMÉ MIGRE 22">113 BARTOLOMÉ MIGRE 22</option>
-                                <option value="115 AV. GRAL GUEMES S/N">115 AV. GRAL GUEMES S/N</option>
-                                <option value="129 AV. GRAL. MANUEL BELGRANO">129 AV. GRAL. MANUEL BELGRANO</option>
-                                <option value="124 SAN MARTÍN 315">124 SAN MARTÍN 315</option>
-                                <option value="106 GÜEMES 100">106 GÜEMES 100</option>
-                                <option value="105 SAN MARTÍN 301">105 SAN MARTÍN 301</option>
-                                <option value="172 SAN MARTÍN 301">172 SAN MARTÍN 301</option>
-                                <option value="139 CIRO ETCHESORTU 52">139 CIRO ETCHESORTU 52</option>
-                                <option value="128 JUAN BAUTISTA ALBERDI 105">128 JUAN BAUTISTA ALBERDI 105</option>
-                                <option value="108 BELGRANO 498">108 BELGRANO 498</option>
-                                <option value="102 24 DE SEPTIEMBRE 398">102 24 DE SEPTIEMBRE 398</option>
-                                <option value="116 AV. TUCUMAN ESQ AV. PUCARÁ">116 AV. TUCUMAN ESQ AV. PUCARÁ</option>
-                                <option value="103 25 DE MAYO 284">103 25 DE MAYO 284</option>
-                                <option value="171 ALVARADO ESQ 20 DE FEBRERO">171 ALVARADO ESQ 20 DE FEBRERO</option>
-                                <option value="117 SAN MARTÍN 523">117 SAN MARTÍN 523</option>
-                                <option value="153 GRAL. GÜEMES 259">153 GRAL. GÜEMES 259</option>
+                                @foreach ($lista_sucursales as $sucursal)
+                                    <option value="{{ $sucursal }}">{{ $sucursal }}</option>
+                                @endforeach
                             </select>
                             @error('sucursal')
                                 <p class="text-red-500">{{ $message }}</p>
