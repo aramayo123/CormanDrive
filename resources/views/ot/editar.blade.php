@@ -14,24 +14,7 @@
         "171 ALVARADO ESQ 20 DE FEBRERO", "117 SAN MARTÍN 523", "153 GRAL. GÜEMES 259"
     ]
 ?>
-
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-    }
-  </style>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-</head>
-<body>
+    @include('layouts.header')
     @include('layouts.nav')
     <div class="bg-gray-900 p-3 sm:p-5 antialiased" style="min-height: 688px;">
        <div class="mx-5 my-2">

@@ -1,20 +1,4 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-    }
-  </style>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-</head>
+@include('layouts.header')
 <style>
     .loader {
         width: 20px;
@@ -36,7 +20,6 @@
         }
     } 
 </style>
-<body>
     @include('layouts.nav')
     <div class="bg-gray-900 p-1 antialiased" style="min-height: 688px;">
         <div class="mx-5 my-2">
