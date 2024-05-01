@@ -131,7 +131,7 @@
         @endif
     </div>
 </div>
-
+@if (count($preventivos))
 <div class="flex flex-col items-center my-5">
     <!-- Help text -->
     <span class="text-sm text-gray-700 dark:text-gray-400">
@@ -160,6 +160,7 @@
         </button>
     </div>
 </div>
+@endif
 <script>
     function EliminarPreventivo(e) {
         if (!e.children[2].type == 'button')

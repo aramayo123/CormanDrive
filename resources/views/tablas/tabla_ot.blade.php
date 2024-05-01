@@ -165,7 +165,7 @@
     </div>
 </div>
 
-
+@if (count($remedits))
 <div class="flex flex-col items-center my-5">
     <!-- Help text -->
     <span class="text-sm text-gray-700 dark:text-gray-400">
@@ -194,6 +194,7 @@
         </button>
     </div>
 </div>
+@endif
 <script>
     function EliminarOt(e) {
         if (!e.children[2].type == 'button')
@@ -383,6 +384,7 @@
 
         if(buscador_remedit.value){
             var filtro = buscador_remedit.value.toLowerCase();
+            RemeditsCompletos();
             var filas = TablaOt.getElementsByTagName('tr');
             for (var i = 0; i < filas.length; i++) {
                 var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
@@ -401,6 +403,7 @@
         }
         if(buscador_remedit.value){
             var filtro = buscador_remedit.value.toLowerCase();
+            RemeditsCompletos();
             var filas = TablaOt.getElementsByTagName('tr');
             for (var i = 0; i < filas.length; i++) {
                 var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
@@ -411,4 +414,73 @@
             }
         }
     });
+
+    function RemeditsCompletos(){
+        TablaOt.innerHTML = "";
+        for (var i = 0; i < arr_ot.length; i++) {
+            var remedit = arr_ot[i];
+            var personal_asignado = remedit.personal_asignado.split(" ");
+            var array_personal =  ['DIEGO ARAMAYO', 'LUIS ARAMAYO', 'ALEJANDRO SAJAMA', 'CESAR ARAMAYO'];
+            var color = remedit.estado === 'ABIERTO' ? 'green' : (remedit.estado === 'CERRADO' ? 'red' : 'yellow')
+            var color_2 = remedit.certificado === '1' ? 'green' : 'red'
+            var palabra = remedit.certificado === '1' ? 'SI' : 'NO'
+            TablaOt.innerHTML += `
+            <tr class="bg-gray-800 border-gray-700 hover:bg-gray-600">
+                <td class="w-4 p-2">
+                    <div class="flex items-center">
+                        <input id="${ remedit.id }_${ remedit.id }" type="radio"
+                            name="remedit" onclick="EditarBorrarOt(${ remedit.id })"
+                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                        <label for="${ remedit.id }_${ remedit.id }"
+                            class="sr-only">checkbox</label>
+                    </div>
+                </td>
+                <th scope="row" class="px-3 py-4 font-medium whitespace-nowrap text-white">
+                    ${ remedit.remedit }
+                </th>
+                <td class="px-3 py-4">
+                    ${ remedit.sucursal }
+                </td>
+                <td class="px-3 py-4">
+                    ${ (personal_asignado[0] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[0]:"" }
+                    ${ (personal_asignado[1] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[1]:"" }
+                    ${ (personal_asignado[2] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[2]:"" }
+                    ${ (personal_asignado[3] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[3]:"" }
+                    ${ (personal_asignado[0] !== '1' && personal_asignado[1] !== '1' && personal_asignado[2] !== '1' && personal_asignado[3] !== '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>':""}
+                </td>
+                <td class="px-3 py-4">
+                    ${ remedit.fecha_abierto }
+                </td>
+                <td class="px-3 py-4">
+                    ${ (!remedit.fecha_cerrado) ? '<p><span class="bg-red-900 text-red-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/F</span></p>':'<p><span class="bg-blue-900 text-blue-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+remedit.fecha_cerrado+'</span></p>' }
+                </td>
+                <td class="px-3 py-4">
+                    <a href="${ remedit.url_carpeta }" target="_blank"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">DRIVE</a>
+                </td>
+                <td class="px-3 py-4">
+                    <p><span class="text-${ color }-300 text-sm font-medium me-2 py-0.5 rounded">${ remedit.estado }</span></p>
+                </td>
+                <td class="px-3 py-4">
+                    <form action="{{ url('/upload_f_ot') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="remedit" id=""
+                            value="${ remedit.remedit }">
+                        <input type="hidden" name="fecha_abierto" id=""
+                            value="${ remedit.fecha_abierto }">
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir
+                            fotos</button>
+                    </form>
+                </td>
+                <td class="px-3 py-4">
+                    
+                    <p><span
+                            class="bg-${color_2}-700 text-${color_2}-300 text-sm font-medium me-2 py-0.5 rounded p-1">${ palabra }</span>
+                    </p>
+                </td>
+            </tr>
+            `;
+        }
+    }
 </script>
