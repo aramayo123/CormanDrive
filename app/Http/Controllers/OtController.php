@@ -77,13 +77,13 @@ class OtController extends Controller
         $remedit->fecha_abierto = $request->fecha_abierto;
         $remedit->fecha_cerrado = $request->fecha_cerrado;
         
-        //if($request->combustible){
-          //  Gdrive::makeDir('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
-            //$url = Storage::disk('google')->url('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
-        //}else{
+        if($request->combustible){
+            Gdrive::makeDir('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
+            $url = Storage::disk('google')->url('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
+        }else{
             Gdrive::makeDir('OTS/'.$remedit->remedit);
             $url = Storage::disk('google')->url('OTS/'.$remedit->remedit);
-        //}
+        }
 
         $remedit->url_carpeta = $url;
         $remedit->estado = $request->estado;
