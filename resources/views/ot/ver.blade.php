@@ -134,7 +134,8 @@
                   <?php 
                     $palabras = explode("*", $remedit->observaciones);
                     foreach ($palabras as $palabra) {
-                      echo '<p>'.$palabra.'</p>';
+                      if($palabra)
+                        echo '<p class="my-2 overflow-x-auto"><strong class="text-xl text-gray-500">*</strong>'.$palabra.'</p>';
                     }
                     ?>
                 </div>
@@ -297,7 +298,8 @@
                   <?php 
                     $palabras = explode("*", $remedit->observaciones);
                     foreach ($palabras as $palabra) {
-                      echo '<p>'.$palabra.'</p>';
+                      if($palabra)
+                        echo '<p class="my-2 overflow-x-auto"><strong class="text-xl text-gray-500">*</strong>'.$palabra.'</p>';
                     }
                     ?>
                 </div>

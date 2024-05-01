@@ -12,6 +12,9 @@ USE Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Yaza\LaravelGoogleDriveStorage\Gdrive;
+use App\Http\Controllers\Google_Client;
+use App\Http\Controllers\Google_Service_Drive;
+
 
 class PreventivoController extends Controller
 {

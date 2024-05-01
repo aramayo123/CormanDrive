@@ -77,8 +77,13 @@ class OtController extends Controller
         $remedit->fecha_abierto = $request->fecha_abierto;
         $remedit->fecha_cerrado = $request->fecha_cerrado;
         
-        Gdrive::makeDir('OTS/'.$remedit->remedit);
-        $url = Storage::disk('google')->url('OTS/'.$remedit->remedit);
+        //if($request->combustible){
+          //  Gdrive::makeDir('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
+            //$url = Storage::disk('google')->url('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
+        //}else{
+            Gdrive::makeDir('OTS/'.$remedit->remedit);
+            $url = Storage::disk('google')->url('OTS/'.$remedit->remedit);
+        //}
 
         $remedit->url_carpeta = $url;
         $remedit->estado = $request->estado;
@@ -96,23 +101,67 @@ class OtController extends Controller
             'remedit' => $remedit,
         ]);
     }
+    private function MoverArchivos($folderIdOrigen, $folderIdDestino){
+        $archivos = Storage::disk('google')->listContents($folderIdOrigen, false);
+        foreach ($archivos as $archivo) {
+            if ($archivo['type'] === 'file') {
+                Storage::disk('google')->move($archivo['path'], $folderIdDestino . '/' . $archivo['extraMetadata']['name']);
+            }
+        }
+    }
+    private function RenameToFolder($remPost, $remAnt, $combustible = 0, $fecha = ""){
+        if($combustible){
+            $dir = 'OTS/COMBUSTIBLE/'.$fecha;
+            Gdrive::makeDir($dir);
+            $url = Storage::disk('google')->url($dir);
+            $folderIdOrigen = 'OTS/'.$remAnt; 
+            $folderIdDestino = $dir;
+        }else{
+            $dir = 'OTS/'.$remPost;
+            Gdrive::makeDir($dir);
+            $url = Storage::disk('google')->url($dir);
+            $folderIdOrigen = 'OTS/'.$remAnt; 
+            $folderIdDestino = $dir;
+        }
+        //$data = [$dir, $url, $folderIdOrigen, $folderIdDestino];
+        //Log::debug($data);
+        $archivos = Storage::disk('google')->listContents($folderIdOrigen, false);
+        foreach ($archivos as $archivo) {
+            if ($archivo['type'] === 'file') {
+                Storage::disk('google')->move($archivo['path'], $folderIdDestino . '/' . $archivo['extraMetadata']['name']);
+            }else if($archivo['type'] === 'dir'){
+                $newDir = 'OTS/'.$remAnt.'/'.$archivo['extraMetadata']['name'];
+                Storage::disk('google')->makeDirectory($newDir);
+                $nuevoOrigen = $newDir;
+                $nuevoDestino = $dir.'/'.$archivo['extraMetadata']['name'];
+                
+                //$datas = [$nuevoOrigen, $nuevoDestino, $newDir];
+                //Log::debug($datas);
+                $this->MoverArchivos($nuevoOrigen, $nuevoDestino);
+            }
+        }
+        Gdrive::deleteDir($folderIdOrigen);
+
+        return $url;
+    }
     public function Update(OtRequest $request, $id)
     {
         $remedit = Ot::findOrFail($id);
-
-        if($request->combustible)
-           $remedit->remedit = "COMBUSTIBLE";
-        else
-            $remedit->remedit = $request->remedit;
-
-        //if(!$request->combustible){
-            //Gdrive::makeDir('OTS/'.$request->remedit);
-          //  Gdrive::renameDir("/MARTIN", "LEONEL");
-          //  return "";
-        //}
-        // else
-        //   Gdrive::renameDir('OTS/'.$remedit->remedit, 'OTS/COMBUSTIBLE/'.$request->fecha);
-
+        if($request->remedit != $remedit->remedit){
+            // SI viene para combustible 
+            if($request->combustible){
+                // NO estaba antes como combustible
+                if(!$remedit->combustible){
+                    $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit, $request->combustible, $remedit->fecha_abierto);
+                    $remedit->remedit = "COMBUSTIBLE";
+                }
+            }else { // NO viene para combustible
+                // SI viene de combustible a remedit
+                $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit."/".$remedit->fecha_abierto);
+                $remedit->remedit = $request->remedit;
+            }
+        }
+        
         $remedit->descripcion = $request->descripcion;
         $remedit->elementos_afectados = $request->elementos_afectados;
         $remedit->acciones_ejecutadas = $request->acciones_ejecutadas;
@@ -158,7 +207,7 @@ class OtController extends Controller
         $remedit->fecha_cerrado = $request->fecha_cerrado;
         $remedit->estado = $request->estado;
         $remedit->certificado = $request->certificado ? $request->certificado:0;
-        //$remedit->combustible = ($request->combustible) ? $request->combustible:0;
+        $remedit->combustible = ($request->combustible) ? $request->combustible:0;
         $remedit->update();
         return redirect()->route('index')->with('exito', 'Remedit modificado con exito!!');
         //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
@@ -221,7 +270,11 @@ class OtController extends Controller
         /** @var \Illuminate\Http\UploadedFile $disk */
         $disk = Storage::disk('google');
         //$filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-        $filename = $file->getClientOriginalName();
+        if(strcasecmp($subcarpeta, 'OT') == 0)
+            $filename = 'ot '.$request->remedit.'.'.$file->getClientOriginalExtension();
+        else
+            $filename = $file->getClientOriginalName();
+       
         $disk->putFileAs($carpeta, $file, $filename);
         // $url = $disk->url($carpeta."/".$filename); // url de la imagen
 

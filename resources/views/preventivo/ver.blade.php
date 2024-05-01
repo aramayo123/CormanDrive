@@ -116,9 +116,11 @@
                   <?php 
                     $palabras = explode("*", $preventivo->observaciones);
                     foreach ($palabras as $palabra) {
-                      echo '<p>'.$palabra.'</p>';
+                      if($palabra)
+                        echo '<p class="my-2 overflow-x-auto"><strong class="text-xl text-gray-500">*</strong>'.$palabra.'</p>';
                     }
                     ?>
+                    
                 </div>
               </div>
               <hr class="mx-[1px]">
@@ -205,7 +207,8 @@
                   <?php 
                     $palabras = explode("*", $preventivo->observaciones);
                     foreach ($palabras as $palabra) {
-                      echo '<p>'.$palabra.'</p>';
+                      if($palabra)
+                        echo '<p class="my-2 overflow-x-auto"><strong class="text-xl text-gray-500">*</strong>'.$palabra.'</p>';
                     }
                     ?>
                 </div>
