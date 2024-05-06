@@ -1,5 +1,5 @@
 <div class="mx-auto text-center mt-[100px] mb-6">
-    <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">En esta
+    <p class="mb-6 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-gray-400">En esta
         seccion se encuentra disponible todo lo relacionado a PREVENTIVOS.</p>
     <a href="{{ url('/preventivo/crear') }}"
         class="w-full sm:w-[25%] py-2.5 px-5 me-2 mb-2 text-sm font-medium focus:outline-none rounded-lg border focus:z-10 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 text-center">CREAR
@@ -96,7 +96,7 @@
                             </td>
                             <td class="px-3 py-4">
                                 <a href="{{ $preventivo->url_carpeta }}" target="_blank"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">DRIVE</a>
+                                    class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">DRIVE</a>
                             </td>
                             <td class="px-3 py-4">
                                 <form action="{{ url('/upload_f_preventivo') }}" method="post">
@@ -106,7 +106,7 @@
                                     <input type="hidden" name="fecha" id=""
                                         value="{{ $preventivo->fecha }}">
                                     <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir
+                                        class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                                         fotos</button>
                                 </form>
                             </td>
@@ -123,10 +123,10 @@
             </table>
         @else
             <h1
-                class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 text-xl dark:text-white">
+                class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-xl text-white">
                 NO EXISTEN PREVENTIVOS REALIZADOS.</h1>
             <h1
-                class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 text-xl dark:text-white">
+                class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-xl text-white">
                 POR FAVOR REALIZA ALGUNO PARA VISUALIZAR LA TABLA DE PREVENTIVOS</h1>
         @endif
     </div>
@@ -134,14 +134,14 @@
 @if (count($preventivos))
 <div class="flex flex-col items-center my-5">
     <!-- Help text -->
-    <span class="text-sm text-gray-700 dark:text-gray-400">
-        Mostrando <span class="font-semibold text-gray-900 dark:text-white" id="paginaActualPreventivo"></span> de <span
-            class="font-semibold text-gray-900 dark:text-white" id="max_pag_preventivo"></span> página <span id="terminacion-preventivo"></span>
+    <span class="text-sm text-gray-400">
+        Mostrando <span class="font-semibold text-white" id="paginaActualPreventivo"></span> de <span
+            class="font-semibold text-white" id="max_pag_preventivo"></span> página<span id="terminacion-preventivo"></span>
     </span>
     <div class="inline-flex mt-2 xs:mt-0">
         <!-- Buttons -->
         <button onclick="PaginaPrevPreventivo()"
-            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            class="flex items-center justify-center px-4 h-10 text-base font-medium rounded-s hover:bg-gray-900 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
             <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -150,7 +150,7 @@
             Prev
         </button>
         <button onclick="PaginaNextPreventivo()"
-            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            class="flex items-center justify-center px-4 h-10 text-base font-medium bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
             Next
             <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 14 10">
@@ -284,7 +284,7 @@
                         </td>
                         <td class="px-3 py-4">
                             <a href="${preventivo.url_carpeta}" target="_blank"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">DRIVE</a>
+                                class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">DRIVE</a>
                         </td>
                         <td class="px-3 py-4">
                             <form action="{{ url('/upload_f_preventivo') }}" method="post">
@@ -294,7 +294,7 @@
                                 <input type="hidden" name="fecha" id=""
                                     value="${preventivo.fecha}">
                                 <button type="submit"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir
+                                    class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                                     fotos</button>
                             </form>
                         </td>

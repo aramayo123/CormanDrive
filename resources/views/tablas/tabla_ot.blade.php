@@ -123,7 +123,7 @@
                             </td>
                             <td class="px-3 py-4">
                                 <a href="{{ $remedit->url_carpeta }}" target="_blank"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">DRIVE</a>
+                                    class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">DRIVE</a>
                             </td>
                             <td class="px-3 py-4">
                                 <?php $color = $remedit->estado == 'ABIERTO' ? 'green' : ($remedit->estado == 'CERRADO' ? 'red' : 'yellow'); ?>
@@ -139,7 +139,7 @@
                                     <input type="hidden" name="fecha_abierto" id=""
                                         value="{{ $remedit->fecha_abierto }}">
                                     <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir
+                                        class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                                         fotos</button>
                                 </form>
                             </td>
@@ -156,10 +156,10 @@
             </table>
         @else
             <h1
-                class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 text-xl dark:text-white">
+            class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-xl text-white">
                 NO EXISTEN TRABAJOS REALIZADOS.</h1>
             <h1
-                class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 text-xl dark:text-white">
+            class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight text-xl text-white">
                 POR FAVOR REALIZA ALGUNO PARA VISUALIZAR LA TABLA DE TRABAJOS</h1>
         @endif
     </div>
@@ -168,14 +168,14 @@
 @if (count($remedits))
 <div class="flex flex-col items-center my-5">
     <!-- Help text -->
-    <span class="text-sm text-gray-700 dark:text-gray-400">
-        Mostrando <span class="font-semibold text-gray-900 dark:text-white" id="paginaActualOt"></span> de <span
-            class="font-semibold text-gray-900 dark:text-white" id="max_pag_ot"></span> página<span id="terminacion-ot"></span>
+    <span class="text-sm text-gray-400">
+        Mostrando <span class="font-semibold text-white" id="paginaActualOt"></span> de <span
+            class="font-semibold text-white" id="max_pag_ot"></span> página<span id="terminacion-ot"></span>
     </span>
     <div class="inline-flex mt-2 xs:mt-0">
         <!-- Buttons -->
         <button onclick="PaginaPrevOt()"
-            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        class="flex items-center justify-center px-4 h-10 text-base font-medium rounded-s hover:bg-gray-900 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
             <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -184,7 +184,7 @@
             Prev
         </button>
         <button onclick="PaginaNextOt()"
-            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        class="flex items-center justify-center px-4 h-10 text-base font-medium bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white">
             Next
             <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 14 10">
@@ -324,7 +324,7 @@
                     </td>
                     <td class="px-3 py-4">
                         <a href="${ remedit.url_carpeta }" target="_blank"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">DRIVE</a>
+                        class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">DRIVE</a>
                     </td>
                     <td class="px-3 py-4">
                         <p><span class="text-${ color }-300 text-sm font-medium me-2 py-0.5 rounded">${ remedit.estado }</span></p>
@@ -337,7 +337,7 @@
                             <input type="hidden" name="fecha_abierto" id=""
                                 value="${ remedit.fecha_abierto }">
                             <button type="submit"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir
+                            class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                                 fotos</button>
                         </form>
                     </td>
@@ -456,7 +456,7 @@
                 </td>
                 <td class="px-3 py-4">
                     <a href="${ remedit.url_carpeta }" target="_blank"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">DRIVE</a>
+                    class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">DRIVE</a>
                 </td>
                 <td class="px-3 py-4">
                     <p><span class="text-${ color }-300 text-sm font-medium me-2 py-0.5 rounded">${ remedit.estado }</span></p>
@@ -469,7 +469,7 @@
                         <input type="hidden" name="fecha_abierto" id=""
                             value="${ remedit.fecha_abierto }">
                         <button type="submit"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Subir
+                        class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                             fotos</button>
                     </form>
                 </td>

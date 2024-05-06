@@ -10,9 +10,12 @@
 @include('layouts.header')
 <div class="bg-gray-900 p-3 sm:p-5 antialiased" style="min-height: 688px;">
     <div class="mx-auto text-center mt-2 mb-6">
-        <h1
+        <div class="flex flex-col justify-items-center gap-5 justify-center">
+            <img class="block sm:hidden mx-auto text-center" style="filter: brightness(1.1); mix-blend-mode: multiply;" src="{{ asset('/storage/img/corman_srl_logo.png') }}" alt="CORMAN" width="200" height="100">
+            <h1
             class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">
             CORMAN FALICITIES S.R.L</h1>
+        </div>
         <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">En esta seccion
             se encuentra disponible todo lo relacionado a OTs.</p>
         <a class="w-full sm:w-[25%] py-2.5 px-5 me-2 mb-2 text-sm font-medium focus:outline-none rounded-lg border focus:z-10 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700 text-center"
