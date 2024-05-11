@@ -218,14 +218,15 @@
     var arr_preventivo = <?php echo json_encode($preventivos); ?>;
     var max_pag_preventivo = Math.ceil(arr_preventivo.length/max_registros_por_pag_preventivo);
     var terminacion_preventivo = document.querySelector("#terminacion-preventivo");
-    terminacion_preventivo.innerHTML = max_pag_preventivo == 1 ? "":"s";
+    if(terminacion_preventivo) terminacion_preventivo.innerHTML = max_pag_preventivo == 1 ? "":"s";
     var TablaPreventivo = document.querySelector("#tabla-preventivo");
     var PagActualPreventivo = 0;
-    TablaPreventivo.innerHTML = "";
-    text_max_pag_preventivo.innerHTML = max_pag_preventivo;
+    if(TablaPreventivo) TablaPreventivo.innerHTML = "";
+    if(text_max_pag_preventivo) text_max_pag_preventivo.innerHTML = max_pag_preventivo;
 
     document.addEventListener('DOMContentLoaded', function() {
-        RellenarPreventivos();
+        if(TablaPreventivo)
+            RellenarPreventivos();
     });
     function PaginaNextPreventivo(){
         if(PagActualPreventivo < max_pag_preventivo-1)

@@ -251,14 +251,16 @@
     var arr_ot = <?php echo json_encode($remedits); ?>;
     var max_pag_ot = Math.ceil(arr_ot.length/max_registros_por_pag_ot);
     var terminacion_ot = document.querySelector("#terminacion-ot");
-    terminacion_ot.innerHTML = max_pag_ot == 1 ? "":"s";
+    if(terminacion_ot) 
+        terminacion_ot.innerHTML = max_pag_ot == 1 ? "":"s";
     var TablaOt = document.querySelector("#tabla-ot");
     var PagActualOt = 0;
-    TablaOt.innerHTML = "";
-    text_max_pag_ot.innerHTML = max_pag_ot;
+    if(TablaOt) TablaOt.innerHTML = "";
+    if(text_max_pag_ot) text_max_pag_ot.innerHTML = max_pag_ot;
 
     document.addEventListener('DOMContentLoaded', function() {
-        RellenarRemedits();
+        if(TablaOt)
+            RellenarRemedits();
     });
     function PaginaNextOt(){
         if(PagActualOt < max_pag_ot-1)
@@ -353,67 +355,70 @@
         }
     }
     var buscador_remedit = document.querySelector("#buscar_remedit");
-    buscador_remedit.addEventListener("keyup", (event) => {
-        if (event.isComposing || event.keyCode === 229) {
-            return;
-        }
-        if(!buscador_remedit.value){
-            RellenarRemedits()
-            return 
-        }
-        if(buscador_remedit.value){
-            var filtro = buscador_remedit.value.toLowerCase();
-            var filas = TablaOt.getElementsByTagName('tr');
-            for (var i = 0; i < filas.length; i++) {
-                var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
-                if (textoFila.includes(filtro))
-                    filas[i].style.display = '';
-                else
-                    filas[i].style.display = 'none';
+    if(buscador_remedit)
+        buscador_remedit.addEventListener("keyup", (event) => {
+            if (event.isComposing || event.keyCode === 229) {
+                return;
             }
-        }
-    });
-    buscador_remedit.addEventListener("keydown", (event) => {
-        if (event.isComposing || event.keyCode === 229) {
-            return;
-        }
-        if(!buscador_remedit.value){
-            RellenarRemedits()
-            return 
-        }
+            if(!buscador_remedit.value){
+                RellenarRemedits()
+                return 
+            }
+            if(buscador_remedit.value){
+                var filtro = buscador_remedit.value.toLowerCase();
+                var filas = TablaOt.getElementsByTagName('tr');
+                for (var i = 0; i < filas.length; i++) {
+                    var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
+                    if (textoFila.includes(filtro))
+                        filas[i].style.display = '';
+                    else
+                        filas[i].style.display = 'none';
+                }
+            }
+        });
+    if(buscador_remedit)
+        buscador_remedit.addEventListener("keydown", (event) => {
+            if (event.isComposing || event.keyCode === 229) {
+                return;
+            }
+            if(!buscador_remedit.value){
+                RellenarRemedits()
+                return 
+            }
 
-        if(buscador_remedit.value){
-            var filtro = buscador_remedit.value.toLowerCase();
-            RemeditsCompletos();
-            var filas = TablaOt.getElementsByTagName('tr');
-            for (var i = 0; i < filas.length; i++) {
-                var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
-                if (textoFila.includes(filtro)) 
-                    filas[i].style.display = '';
-                else
-                    filas[i].style.display = 'none';
+            if(buscador_remedit.value){
+                var filtro = buscador_remedit.value.toLowerCase();
+                RemeditsCompletos();
+                var filas = TablaOt.getElementsByTagName('tr');
+                for (var i = 0; i < filas.length; i++) {
+                    var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
+                    if (textoFila.includes(filtro)) 
+                        filas[i].style.display = '';
+                    else
+                        filas[i].style.display = 'none';
+                }
             }
-        }
-    });
+        });
     boton_buscar = document.querySelector("#boton_buscar");
-    boton_buscar.addEventListener('click', function() {
-        if(!buscador_remedit.value){
-            RellenarRemedits()
-            return 
-        }
-        if(buscador_remedit.value){
-            var filtro = buscador_remedit.value.toLowerCase();
-            RemeditsCompletos();
-            var filas = TablaOt.getElementsByTagName('tr');
-            for (var i = 0; i < filas.length; i++) {
-                var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
-                if (textoFila.includes(filtro)) 
-                    filas[i].style.display = '';
-                else
-                    filas[i].style.display = 'none';
+    if(boton_buscar)
+        boton_buscar.addEventListener('click', function() {
+            if(!buscador_remedit.value){
+                RellenarRemedits()
+                return 
             }
-        }
-    });
+            if(buscador_remedit.value){
+                var filtro = buscador_remedit.value.toLowerCase();
+                RemeditsCompletos();
+                var filas = TablaOt.getElementsByTagName('tr');
+                for (var i = 0; i < filas.length; i++) {
+                    var textoFila = filas[i].children[1].innerText.toLowerCase() || filas[i].children[1].textContent.toLowerCase();
+                    if (textoFila.includes(filtro)) 
+                        filas[i].style.display = '';
+                    else
+                        filas[i].style.display = 'none';
+                }
+            }
+        });
 
     function RemeditsCompletos(){
         TablaOt.innerHTML = "";

@@ -141,6 +141,8 @@ class OtController extends Controller
             }
         }
         Gdrive::deleteDir($folderIdOrigen);
+        Storage::disk('local')->copy("public/".$folderIdOrigen,"public/".$folderIdDestino);
+        Storage::disk('local')->move("public/".$folderIdOrigen,"public/".$folderIdDestino);
 
         return $url;
     }
@@ -155,10 +157,16 @@ class OtController extends Controller
                     $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit, $request->combustible, $remedit->fecha_abierto);
                     $remedit->remedit = "COMBUSTIBLE";
                 }
-            }else { // NO viene para combustible
-                // SI viene de combustible a remedit
-                $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit."/".$remedit->fecha_abierto);
-                $remedit->remedit = $request->remedit;
+            }else { 
+                if($remedit->combustible){// SI viene de combustible a remedit
+                    $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit."/".$remedit->fecha_abierto);
+                    $remedit->remedit = $request->remedit;
+                }else{
+                    // NO viene para combustible
+                    $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit);
+                    $remedit->remedit = $request->remedit;
+                }
+                
             }
         }
         
@@ -258,22 +266,33 @@ class OtController extends Controller
         return Storage::putFile('storage/public/' . $url, $file, 'public');
     }
     protected function GuardarFoto(Request $request, $subcarpeta, $input_file){
-        if(strcasecmp($request->remedit, 'COMBUSTIBLE') == 0)
+        if(strcasecmp($request->remedit, 'COMBUSTIBLE') == 0){
             $carpeta = "OTS/".$request->remedit."/".$request->fecha."/".$subcarpeta;
-        else   
+            if(strcasecmp($subcarpeta, 'BOLETA') == 0)
+                $carpeta_local = $carpeta;
+            else
+                $carpeta_local = "OTS/".$request->remedit."/".$request->fecha; 
+        }else{
             $carpeta = "OTS/".$request->remedit."/".$subcarpeta;
+            if(strcasecmp($subcarpeta, 'BOLETA') == 0)
+                $carpeta_local = $carpeta;
+            else
+                $carpeta_local = "OTS/".$request->remedit;
+        }
+        
 
         $file = $request->file($input_file);
-        $imagen = $file->store('public/'.$carpeta);
+        //$imagen = $file->store('public/'.$carpeta);
+        $imagen = $file->storeAs('public/'.$carpeta_local, time().'_'.$file->getClientOriginalName());
         $imagen = Storage::url($imagen);
-        //Log::notice($imagen);
+
         /** @var \Illuminate\Http\UploadedFile $disk */
         $disk = Storage::disk('google');
         //$filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
         if(strcasecmp($subcarpeta, 'OT') == 0)
             $filename = 'ot '.$request->remedit.'.'.$file->getClientOriginalExtension();
         else
-            $filename = $file->getClientOriginalName();
+            $filename = time().'_'.$file->getClientOriginalName();
        
         $disk->putFileAs($carpeta, $file, $filename);
         // $url = $disk->url($carpeta."/".$filename); // url de la imagen

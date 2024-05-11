@@ -202,12 +202,12 @@ class PreventivoController extends Controller
     protected function GuardarFoto(Request $request, $subcarpeta, $input_file){
         $carpeta = "PLANILLA PREVENTIVOS/".$request->mes."/".$request->sucursal."/".$subcarpeta;
         $file = $request->file($input_file);
-        $imagen = $file->store('public/'.$carpeta);
+        $imagen = $file->storeAs('public/'.$carpeta, time().'_'.$file->getClientOriginalName());
         $imagen = Storage::url($imagen);
 
         /** @var \Illuminate\Http\UploadedFile $disk */
         $disk = Storage::disk('google');
-        $filename = $file->getClientOriginalName();
+        $filename = time().'_'.$file->getClientOriginalName();
         $disk->putFileAs($carpeta, $file, $filename);
         // $url = $disk->url($carpeta."/".$filename); // url de la imagen
 

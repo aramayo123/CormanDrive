@@ -1,13 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OtController;
 use App\Http\Controllers\PreventivoController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Yaza\LaravelGoogleDriveStorage\Gdrive;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
