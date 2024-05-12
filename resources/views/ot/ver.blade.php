@@ -1,6 +1,9 @@
 @php
-
-    $arr_personal = ['DIEGO ARAMAYO', 'LUIS ARAMAYO', 'ALEJANDRO SAJAMA', 'CESAR ARAMAYO'];
+  use App\Models\Personal;
+  $personales = Personal::all();
+  $arr_personal = [];
+  foreach($personales as $personal)
+      array_push($arr_personal, $personal->nombre_personal);
 @endphp
     @include('layouts.header')
     @include('layouts.nav')
@@ -73,22 +76,19 @@
                   <p>PERSONAL ASIGNADO:</p>
                 </div>
                 <div class="text-white p-2 mx-[1px] break-all w-5/6">
-                  <?php 
-                    $personal_remedit = str_split($remedit->personal_asignado);
-                    if($personal_remedit[0] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[0].'</span></p>';
+                  <?php
+                    $personal_remedit = explode(" ", $remedit->personal_asignado);
+                    $cantidad = 0;
+                    $connnnt = 0;
+                    foreach ($personal_remedit as $personal) {
+                        if($personal == '1'){
+                            echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[$connnnt] . '</span></p>';
+                            $cantidad++;
+                        }
+                        $connnnt++;
                     }
-                    if($personal_remedit[2] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[1].'</span></p>';
-                    }
-                    if($personal_remedit[4] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[2].'</span></p>';
-                    }
-                    if($personal_remedit[6] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[3].'</span></p>';
-                    }
-                    if($personal_remedit[0] == '0' && $personal_remedit[2] == '0' && $personal_remedit[4] == '0' && $personal_remedit[6] == '0'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">S/P ASIGNADO</span></p>';
+                    if (!$cantidad) {
+                        echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
                     }
                   ?>
                 </div>
@@ -196,6 +196,24 @@
                 </div>
               </div>
               <hr class="mx-[1px]">
+
+              <div class="text-center mx-auto text-sm uppercase text-gray-400">
+                <div class="text-white p-2 mx-[1px] break-all w-full">
+                  <form action="{{ url('/download') }}" method="post" id="form-ot">
+                    @csrf
+                    @if (!$remedit->combustible)
+                      <input type="hidden" name="folder" value="OTS/{{ $remedit->remedit }}">
+                    @else
+                      <input type="hidden" name="folder" value="OTS/COMBUSTIBLE/{{ $remedit->fecha_abierto }}">
+                    @endif
+                    <input type="hidden" name="remedit" value="{{ $remedit->remedit }}">
+                    <button type="submit" class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                      DESCARGAR
+                    </button>
+                  </form>
+                 
+                </div>
+              </div>
 
             </div>
 
@@ -237,22 +255,19 @@
                   <p>PERSONAL ASIGNADO:</p>
                 </div>
                 <div class="text-white p-2 mx-[1px] break-all w-full">
-                  <?php 
-                    $personal_remedit = str_split($remedit->personal_asignado);
-                    if($personal_remedit[0] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[0].'</span></p>';
+                  <?php
+                    $personal_remedit = explode(" ", $remedit->personal_asignado);
+                    $cantidad = 0;
+                    $connnnt = 0;
+                    foreach ($personal_remedit as $personal) {
+                        if($personal == '1'){
+                            echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[$connnnt] . '</span></p>';
+                            $cantidad++;
+                        }
+                        $connnnt++;
                     }
-                    if($personal_remedit[2] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[1].'</span></p>';
-                    }
-                    if($personal_remedit[4] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[2].'</span></p>';
-                    }
-                    if($personal_remedit[6] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[3].'</span></p>';
-                    }
-                    if($personal_remedit[0] == '0' && $personal_remedit[2] == '0' && $personal_remedit[4] == '0' && $personal_remedit[6] == '0'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">S/P ASIGNADO</span></p>';
+                    if (!$cantidad) {
+                        echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
                     }
                   ?>
                 </div>
@@ -360,9 +375,62 @@
                 </div>
               </div>
               <hr class="mx-[1px]">
+
+              <div class="text-center mx-auto text-gray-400 text-sm uppercase">
+                <div class="text-white p-2 mx-[1px] break-all w-full">
+                  <form action="{{ url('/download') }}" method="post" id="form-ot">
+                    @csrf
+                    @if (!$remedit->combustible)
+                      <input type="hidden" name="folder" value="OTS/{{ $remedit->remedit }}">
+                    @else
+                      <input type="hidden" name="folder" value="OTS/COMBUSTIBLE/{{ $remedit->fecha_abierto }}">
+                    @endif
+                    <input type="hidden" name="remedit" value="{{ $remedit->remedit }}">
+                    <button type="submit" class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                      DESCARGAR
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
         </div>
     </div>
+
+    <script>
+      /*
+      const formulario = document.querySelector('#form-ot');
+      formulario.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(formulario);
+        const data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+
+        fetch(e.target.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'CSRF-Token': data['_token'],
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(({ url }) => {
+          const a = document.createElement('a');
+          a.href = url;
+          a.download;
+          a.target = '_blank';
+          a.click();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
+      });
+      */
+    </script>
 </body>
 
 </html>

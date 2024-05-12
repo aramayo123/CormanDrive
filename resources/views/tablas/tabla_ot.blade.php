@@ -89,20 +89,17 @@
                             </td>
                             <td class="px-3 py-4">
                                 <?php
-                                $personal_remedit = str_split($remedit->personal_asignado);
-                                if ($personal_remedit[0] == '1') {
-                                    echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[0] . '</span></p>';
+                                $personal_remedit = explode(" ", $remedit->personal_asignado);
+                                $cantidad = 0;
+                                $connnnt = 0;
+                                foreach ($personal_remedit as $personal) {
+                                    if($personal == '1'){
+                                        echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[$connnnt] . '</span></p>';
+                                        $cantidad++;
+                                    }
+                                    $connnnt++;
                                 }
-                                if ($personal_remedit[2] == '1') {
-                                    echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[1] . '</span></p>';
-                                }
-                                if ($personal_remedit[4] == '1') {
-                                    echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[2] . '</span></p>';
-                                }
-                                if ($personal_remedit[6] == '1') {
-                                    echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[3] . '</span></p>';
-                                }
-                                if ($personal_remedit[0] == '0' && $personal_remedit[2] == '0' && $personal_remedit[4] == '0' && $personal_remedit[6] == '0') {
+                                if (!$cantidad) {
                                     echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
                                 }
                                 ?>
@@ -288,7 +285,18 @@
             var remedit = arr_ot[i];
             if(contador >= min && contador <= max){
                 var personal_asignado = remedit.personal_asignado.split(" ");
-                var array_personal =  ['DIEGO ARAMAYO', 'LUIS ARAMAYO', 'ALEJANDRO SAJAMA', 'CESAR ARAMAYO'];
+                var personales_asignados = "";
+                var algun_personal = 0;
+                var array_personal = <?php echo json_encode($arr_personal); ?>;
+                for (var a = 0; a < personal_asignado.length; a++) {
+                    if(personal_asignado[a] === '1'){
+                        personales_asignados += '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[a]+'</span></p>';
+                        algun_personal = 1;
+                    }
+                }
+                if(!algun_personal)
+                    personales_asignados = '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
+
                 var color = remedit.estado === 'ABIERTO' ? 'green' : (remedit.estado === 'CERRADO' ? 'red' : 'yellow')
                 
                 var color_2 = remedit.certificado === '1' ? 'green' : 'red'
@@ -312,11 +320,7 @@
                         ${ remedit.sucursal }
                     </td>
                     <td class="px-3 py-4">
-                        ${ (personal_asignado[0] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[0]:"" }
-                        ${ (personal_asignado[1] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[1]:"" }
-                        ${ (personal_asignado[2] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[2]:"" }
-                        ${ (personal_asignado[3] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[3]:"" }
-                        ${ (personal_asignado[0] !== '1' && personal_asignado[1] !== '1' && personal_asignado[2] !== '1' && personal_asignado[3] !== '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>':""}
+                       ${ personales_asignados }
                     </td>
                     <td class="px-3 py-4">
                         ${ remedit.fecha_abierto }

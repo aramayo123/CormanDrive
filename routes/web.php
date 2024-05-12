@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Yaza\LaravelGoogleDriveStorage\Gdrive;
+use ZanySoft\Zip\Zip;
+use \Madzipper\Zipper;
+use Madnest\Madzipper\Madzipper;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +56,48 @@ Route::post('/preventivo/fotos_planilla', [PreventivoController::class, 'FotosPl
 
 Route::post('/upload_f_ot', [OtController::class, 'UploadFotosOt']);
 Route::post('/upload_f_preventivo', [PreventivoController::class, 'UploadFotosPreventivos']);
+
+Route::post('/download', function (Request $request) {
+    /*
+    $folderPath = $request->folder;
+    $zip = new \ZipArchive();
+    $zipPath = storage_path('app/public/zipfile.zip');
+
+    if (!($zip->open($zipPath, \ZipArchive::CREATE))) {
+        return response()->json(['error' => 'No se pudo crear el archivo ZIP.']);
+    }
+
+    $rootPath = public_path('storage/' . $folderPath);
+    $files = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($rootPath),
+        \RecursiveIteratorIterator::LEAVES_ONLY
+    );
+
+    foreach ($files as $name => $file) {
+        if ($file->isDir()) continue;
+        $filePath = $file->getRealPath();
+        $relativePath = substr($filePath, strlen($rootPath) + 1);
+        $zip->addFile($filePath, $relativePath);
+    }
+
+    $zip->close();
+
+    $routeZip = "zips/{$request->remedit}.zip";
+    
+    if (!(Storage::disk('local')->put("public/{$routeZip}", file_get_contents($zipPath)))) {
+        return response()->json(['error' => 'No se pudo guardar el archivo ZIP.']);
+    }
+    
+    unlink($zipPath);
+
+    return response()->json([
+        'success' => 'Archivo ZIP creado y guardado correctamente.',
+        'url' => asset("storage/{$routeZip}"),
+    ]);
+    */
+    $folderPath = $request->folder;
+    $zip = new Madzipper();
+    $zip->make('zips/'.$request->remedit.'.zip')->addDir('storage/'.$folderPath);
+    $url = asset(asset('zips/'.$request->remedit.'.zip'));
+    return redirect($url);
+});

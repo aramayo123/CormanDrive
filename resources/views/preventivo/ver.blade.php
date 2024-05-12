@@ -1,6 +1,9 @@
 @php
-
-    $arr_personal = ['DIEGO ARAMAYO', 'LUIS ARAMAYO', 'ALEJANDRO SAJAMA', 'CESAR ARAMAYO'];
+  use App\Models\Personal;
+  $personales = Personal::all();
+  $arr_personal = [];
+  foreach($personales as $personal)
+      array_push($arr_personal, $personal->nombre_personal);
 @endphp
     @include('layouts.header')
     @include('layouts.nav')
@@ -65,22 +68,19 @@
                   <p>PERSONAL ASIGNADO:</p>
                 </div>
                 <div class=" p-2 mx-[1px] break-all w-5/6">
-                  <?php 
-                    $personal_preventivo = str_split($preventivo->personal_asignado);
-                    if($personal_preventivo[0] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[0].'</span></p>';
+                  <?php
+                    $personal_preventivo = explode(" ", $preventivo->personal_asignado);
+                    $cantidad = 0;
+                    $connnnt = 0;
+                    foreach ($personal_preventivo as $personal) {
+                        if($personal == '1'){
+                            echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[$connnnt] . '</span></p>';
+                            $cantidad++;
+                        }
+                        $connnnt++;
                     }
-                    if($personal_preventivo[2] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[1].'</span></p>';
-                    }
-                    if($personal_preventivo[4] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[2].'</span></p>';
-                    }
-                    if($personal_preventivo[6] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[3].'</span></p>';
-                    }
-                    if($personal_preventivo[0] == '0' && $personal_preventivo[2] == '0' && $personal_preventivo[4] == '0' && $personal_preventivo[6] == '0'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">S/P ASIGNADO</span></p>';
+                    if (!$cantidad) {
+                        echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
                     }
                   ?>
                 </div>
@@ -156,22 +156,19 @@
                   <p>PERSONAL ASIGNADO:</p>
                 </div>
                 <div class="text-white p-2 mx-[1px] break-all">
-                  <?php 
-                    $personal_preventivo = str_split($preventivo->personal_asignado);
-                    if($personal_preventivo[0] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[0].'</span></p>';
+                  <?php
+                    $personal_preventivo = explode(" ", $preventivo->personal_asignado);
+                    $cantidad = 0;
+                    $connnnt = 0;
+                    foreach ($personal_preventivo as $personal) {
+                        if($personal == '1'){
+                            echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[$connnnt] . '</span></p>';
+                            $cantidad++;
+                        }
+                        $connnnt++;
                     }
-                    if($personal_preventivo[2] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[1].'</span></p>';
-                    }
-                    if($personal_preventivo[4] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[2].'</span></p>';
-                    }
-                    if($personal_preventivo[6] == '1'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">'.$arr_personal[3].'</span></p>';
-                    }
-                    if($personal_preventivo[0] == '0' && $personal_preventivo[2] == '0' && $personal_preventivo[4] == '0' && $personal_preventivo[6] == '0'){
-                        echo '<p><span class=" text-green-300 text-sm font-medium me-2 py-0.5 rounded">S/P ASIGNADO</span></p>';
+                    if (!$cantidad) {
+                        echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
                     }
                   ?>
                 </div>

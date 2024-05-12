@@ -1,10 +1,13 @@
 @php
     use App\Models\Ot;
     use App\Models\Preventivo;
+    use App\Models\Personal;
     $remedits = Ot::orderByDesc('fecha_abierto')->get();
     $preventivos = Preventivo::orderByDesc('fecha')->get();
-
-    $arr_personal = ['DIEGO ARAMAYO', 'LUIS ARAMAYO', 'ALEJANDRO SAJAMA', 'CESAR ARAMAYO'];
+    $personales = Personal::all();
+    $arr_personal = [];
+    foreach($personales as $personal)
+        array_push($arr_personal, $personal->nombre_personal);
 @endphp
 
 @include('layouts.header')

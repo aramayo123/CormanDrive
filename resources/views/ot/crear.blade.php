@@ -12,7 +12,9 @@
         "106 JOAQUIN V. GONZALEZ", "105 TARTAGAL", "172 LOS TÁRTAGOS", "139 GENERAL MOSCONI", "128 AGUARAY",
         "108 POCITOS", "102 EMBARCACION", "116 PICHANAL", "103 ORAN",
         "171 SAN RAMON", "117 COLONIA SANTA ROSA"
-    ]
+    ];
+    use App\Models\Personal;
+    $personales = Personal::all();
 ?>
     @include('layouts.header')
     @include('layouts.nav')
@@ -107,31 +109,15 @@
                     </div>
                     <div class="personal_asignado parte-1">      
                         <h3 class="mb-4 text-sm text-gray-400">PERSONAL ASIGNADO</h3>
-                        <ul class="items-center w-full text-sm font-medium border border-gray-200 rounded-lg sm:flex bg-gray-700 border-gray-600 text-white mb-6">
-                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r border-gray-600">
-                                <div class="flex items-center ps-3">
-                                    <input id="DIEGO" type="checkbox" name="personal_diego" value="DIEGO ARAMAYO" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2 bg-gray-600 border-gray-500">
-                                    <label for="DIEGO" class="w-full py-3 ms-2 font-medium text-gray-300">Diego Aramayo</label>
-                                </div>
-                            </li>
-                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r border-gray-600">
-                                <div class="flex items-center ps-3">
-                                    <input id="LUIS" type="checkbox" name="personal_luis" value="LUIS ARAMAYO" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2 bg-gray-600 border-gray-500">
-                                    <label for="LUIS" class="w-full py-3 ms-2 font-medium text-gray-300">Luis Aramayo</label>
-                                </div>
-                            </li>
-                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r border-gray-600">
-                                <div class="flex items-center ps-3">
-                                    <input id="ALEJANDRO" type="checkbox" name="personal_alejandro" value="ALEJANDRO SAJAMA" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 focus:ring-blue-600 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2 bg-gray-600 border-gray-500">
-                                    <label for="ALEJANDRO" class="w-full py-3 ms-2 font-medium text-gray-300">Alejandro Sajama</label>
-                                </div>
-                            </li>
-                            <li class="w-full border-gray-600">
-                                <div class="flex items-center ps-3">
-                                    <input id="CESAR" type="checkbox" name="personal_cesar" value="CESAR ARAMAYO" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 focus:ring-blue-600 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2 bg-gray-600 border-gray-500">
-                                    <label for="CESAR" class="w-full py-3 ms-2 text-sm font-medium text-gray-300">Cesar Aramayo</label>
-                                </div>
-                            </li>
+                        <ul class="grid grid-cols-1 sm:grid-cols-3 items-center w-full text-sm font-medium border border-gray-200 rounded-lg bg-gray-700 border-gray-600 text-white mb-6">
+                            @foreach ($personales as $personal)
+                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r border-gray-600">
+                                    <div class="flex items-center ps-3">
+                                        <input id="{{ $personal->nombre_personal }}" type="checkbox" name="{{ $personal->valor }}" value="{{ $personal->nombre_personal }}" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2 bg-gray-600 border-gray-500">
+                                        <label for="{{ $personal->nombre_personal }}" class="w-full py-3 ms-2 font-medium text-gray-300">{{ $personal->nombre_personal }}</label>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="estado mb-5 parte-1">      

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OtRequest;
 use App\Http\Requests\FotoRequest;
 use App\Models\Ot;
+use App\Models\Personal;
 use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -39,41 +40,26 @@ class OtController extends Controller
         $remedit->cliente = $request->cliente;
         $remedit->sucursal = $request->sucursal;
             
-        $arr_personal = [
-            ["DIEGO ARAMAYO", 0],
-            ["LUIS ARAMAYO", 0],
-            ["ALEJANDRO SAJAMA", 0],
-            ["CESAR ARAMAYO", 0]
-        ];
-        if($request->personal_diego){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_diego) == 0){
-                    $arr_personal[$i][1] = 1;
+        $personales = Personal::all();
+        $arr_personal = [];
+        foreach($personales as $personal)
+            array_push($arr_personal, [$personal->nombre_personal, 0]);
+
+        foreach($personales as $personal){
+            $input = $request->input($personal->valor);
+            if($input){
+                for ($i = 0; $i < count($arr_personal); $i++) {
+                    if(strcasecmp($arr_personal[$i][0],$input) == 0)
+                        $arr_personal[$i][1] = 1;
                 }
             }
         }
-        if($request->personal_luis){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_luis) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_alejandro){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_alejandro) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_cesar){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_cesar) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        $remedit->personal_asignado = $arr_personal[0][1]." ".$arr_personal[1][1]." ".$arr_personal[2][1]." ".$arr_personal[3][1];
+        $personal_final = "";
+        for ($i = 0; $i < count($arr_personal); $i++)
+            $personal_final .= $arr_personal[$i][1]." ";
+
+        $remedit->personal_asignado = $personal_final;
+
         $remedit->fecha_abierto = $request->fecha_abierto;
         $remedit->fecha_cerrado = $request->fecha_cerrado;
         
@@ -176,41 +162,26 @@ class OtController extends Controller
         $remedit->observaciones = $request->observaciones;
         $remedit->cliente = $request->cliente;
         $remedit->sucursal = $request->sucursal;
-        $arr_personal = [
-            ["DIEGO ARAMAYO", 0],
-            ["LUIS ARAMAYO", 0],
-            ["ALEJANDRO SAJAMA", 0],
-            ["CESAR ARAMAYO", 0]
-        ];
-        if($request->personal_diego){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_diego) == 0){
-                    $arr_personal[$i][1] = 1;
+
+        $personales = Personal::all();
+        $arr_personal = [];
+        foreach($personales as $personal)
+            array_push($arr_personal, [$personal->nombre_personal, 0]);
+
+        foreach($personales as $personal){
+            $input = $request->input($personal->valor);
+            if($input){
+                for ($i = 0; $i < count($arr_personal); $i++) {
+                    if(strcasecmp($arr_personal[$i][0],$input) == 0)
+                        $arr_personal[$i][1] = 1;
                 }
             }
         }
-        if($request->personal_luis){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_luis) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_alejandro){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_alejandro) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_cesar){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_cesar) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        $remedit->personal_asignado = $arr_personal[0][1]." ".$arr_personal[1][1]." ".$arr_personal[2][1]." ".$arr_personal[3][1];
+        $personal_final = "";
+        for ($i = 0; $i < count($arr_personal); $i++)
+            $personal_final .= $arr_personal[$i][1]." ";
+
+        $remedit->personal_asignado = $personal_final;
         $remedit->fecha_abierto = $request->fecha_abierto;
         $remedit->fecha_cerrado = $request->fecha_cerrado;
         $remedit->estado = $request->estado;

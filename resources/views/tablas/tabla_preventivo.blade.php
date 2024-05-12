@@ -73,21 +73,18 @@
                             </td>
                             <td class="px-3 py-4">
                                 <?php
-                                $personal_preventivo = str_split($preventivo->personal_asignado);
-                                if ($personal_preventivo[0] == '1') {
-                                    echo '<p><span class="text-xs font-medium me-2 px-2.5 py-0.5 rounded text-green-300">' . $arr_personal[0] . '</span></p>';
+                                $personal_preventivo = explode(" ", $preventivo->personal_asignado);
+                                $cantidad_2 = 0;
+                                $connnnt_2 = 0;
+                                foreach ($personal_preventivo as $personal) {
+                                    if($personal == '1'){
+                                        echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">' . $arr_personal[$connnnt_2] . '</span></p>';
+                                        $cantidad_2++;
+                                    }
+                                    $connnnt_2++;
                                 }
-                                if ($personal_preventivo[2] == '1') {
-                                    echo '<p><span class="text-xs font-medium me-2 px-2.5 py-0.5 rounded text-green-300">' . $arr_personal[1] . '</span></p>';
-                                }
-                                if ($personal_preventivo[4] == '1') {
-                                    echo '<p><span class="text-xs font-medium me-2 px-2.5 py-0.5 rounded text-green-300">' . $arr_personal[2] . '</span></p>';
-                                }
-                                if ($personal_preventivo[6] == '1') {
-                                    echo '<p><span class="text-xs font-medium me-2 px-2.5 py-0.5 rounded text-green-300">' . $arr_personal[3] . '</span></p>';
-                                }
-                                if ($personal_preventivo[0] == '0' && $personal_preventivo[2] == '0' && $personal_preventivo[4] == '0' && $personal_preventivo[6] == '0') {
-                                    echo '<p><span class="text-xs font-medium me-2 px-2.5 py-0.5 rounded text-green-300">S/P ASIGNADO</span></p>';
+                                if ($cantidad_2) {
+                                    echo '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
                                 }
                                 ?>
                             </td>
@@ -254,7 +251,17 @@
             var preventivo = arr_preventivo[i];
             if(contador >= min && contador <= max){
                 var personal_asignado = preventivo.personal_asignado.split(" ");
-                var array_personal =  ['DIEGO ARAMAYO', 'LUIS ARAMAYO', 'ALEJANDRO SAJAMA', 'CESAR ARAMAYO'];
+                var personales_asignados = "";
+                var algun_personal = 0;
+                var array_personal = <?php echo json_encode($arr_personal); ?>;
+                for (var a = 0; a < personal_asignado.length; a++) {
+                    if(personal_asignado[a] === '1'){
+                        personales_asignados += '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[a]+'</span></p>';
+                        algun_personal = 1;
+                    }
+                }
+                if(!algun_personal)
+                    personales_asignados = '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>';
                 
                 var color_2 = preventivo.certificado === '1' ? 'green' : 'red'
                 var palabra = preventivo.certificado === '1' ? 'SI' : 'NO'
@@ -274,11 +281,7 @@
                             ${ preventivo.sucursal }
                         </td>
                         <td class="px-3 py-4">
-                            ${ (personal_asignado[0] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[0]:"" }
-                            ${ (personal_asignado[1] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[1]:"" }
-                            ${ (personal_asignado[2] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[2]:"" }
-                            ${ (personal_asignado[3] === '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">'+array_personal[3]:"" }
-                            ${ (personal_asignado[0] !== '1' && personal_asignado[1] !== '1' && personal_asignado[2] !== '1' && personal_asignado[3] !== '1') ? '<p><span class=" text-green-300 text-xs font-medium me-2 px-2.5 py-0.5 rounded">S/P ASIGNADO</span></p>':""}
+                            ${ personales_asignados }
                         </td>
                         <td class="px-3 py-4">
                             ${ preventivo.fecha }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\PreventivoRequest;
 use App\Models\Preventivo;
+use App\Models\Personal;
 use App\Http\Requests\FotoRequest;
 use Illuminate\Support\Facades\Log;
 USE Illuminate\Support\Facades\File;
@@ -34,42 +35,26 @@ class PreventivoController extends Controller
         $preventivo->fecha = $request->fecha;
         $preventivo->observaciones = $request->observaciones;
 
-        $arr_personal = [
-            ["DIEGO ARAMAYO", 0],
-            ["LUIS ARAMAYO", 0],
-            ["ALEJANDRO SAJAMA", 0],
-            ["CESAR ARAMAYO", 0]
-        ];
-        if($request->personal_diego){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_diego) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_luis){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_luis) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_alejandro){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_alejandro) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_cesar){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_cesar) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        $preventivo->personal_asignado = $arr_personal[0][1]." ".$arr_personal[1][1]." ".$arr_personal[2][1]." ".$arr_personal[3][1];
+        $personales = Personal::all();
+        $arr_personal = [];
+        foreach($personales as $personal)
+            array_push($arr_personal, [$personal->nombre_personal, 0]);
 
+        foreach($personales as $personal){
+            $input = $request->input($personal->valor);
+            if($input){
+                for ($i = 0; $i < count($arr_personal); $i++) {
+                    if(strcasecmp($arr_personal[$i][0],$input) == 0)
+                        $arr_personal[$i][1] = 1;
+                }
+            }
+        }
+        $personal_final = "";
+        for ($i = 0; $i < count($arr_personal); $i++)
+            $personal_final .= $arr_personal[$i][1]." ";
+
+        $preventivo->personal_asignado = $personal_final;
+        
         $arr1 = str_split($request->fecha);
         $mesInt = $arr1[5].$arr1[6];
         $meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", 
@@ -99,41 +84,25 @@ class PreventivoController extends Controller
         $preventivo->cliente = $request->cliente;
         $preventivo->sucursal = $request->sucursal;
         $preventivo->fecha = $request->fecha;
-        $arr_personal = [
-            ["DIEGO ARAMAYO", 0],
-            ["LUIS ARAMAYO", 0],
-            ["ALEJANDRO SAJAMA", 0],
-            ["CESAR ARAMAYO", 0]
-        ];
-        if($request->personal_diego){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_diego) == 0){
-                    $arr_personal[$i][1] = 1;
+        $personales = Personal::all();
+        $arr_personal = [];
+        foreach($personales as $personal)
+            array_push($arr_personal, [$personal->nombre_personal, 0]);
+
+        foreach($personales as $personal){
+            $input = $request->input($personal->valor);
+            if($input){
+                for ($i = 0; $i < count($arr_personal); $i++) {
+                    if(strcasecmp($arr_personal[$i][0],$input) == 0)
+                        $arr_personal[$i][1] = 1;
                 }
             }
         }
-        if($request->personal_luis){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_luis) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_alejandro){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_alejandro) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        if($request->personal_cesar){
-            for ($i = 0; $i < count($arr_personal); $i++) {
-                if(strcasecmp($arr_personal[$i][0],$request->personal_cesar) == 0){
-                    $arr_personal[$i][1] = 1;
-                }
-            }
-        }
-        $preventivo->personal_asignado = $arr_personal[0][1]." ".$arr_personal[1][1]." ".$arr_personal[2][1]." ".$arr_personal[3][1];
+        $personal_final = "";
+        for ($i = 0; $i < count($arr_personal); $i++)
+            $personal_final .= $arr_personal[$i][1]." ";
+
+        $preventivo->personal_asignado = $personal_final;
         $preventivo->observaciones = $request->observaciones;
         $preventivo->certificado = $request->certificado ? $request->certificado:0;
         $preventivo->update();
