@@ -34,15 +34,15 @@
             </div>
         </div>
        <div class="mx-5 my-6">
-            <div class="max-w-full sm:max-w-lg mx-auto my-6 rounded-lg bg-gray-800 p-4 sm:p-6 " >
+        <div class="max-w-full sm:max-w-lg mx-auto my-6 rounded-lg bg-gray-800 p-6" >
                 <input type="hidden" name="sucursal" id="sucursal" value="{{ $sucursal }}" />
                 <input type="hidden" name="mes" id="mes" value="{{ $mes }}" />
                 
                 <!-- EMPIEZA EL PROCESO !-->
                 <label class="block mb-2 text-sm font-medium text-gray-400" for="fotos_preventivo">FOTOS DEL PREVENTIVO </label>   
-                <div class="relative z-0 w-[110%] mb-5 group flex">
+                <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" name="fotos_preventivo[]" id="fotos_preventivo" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_preventivo[]" id="fotos_preventivo" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-preventivo"></p>
@@ -51,13 +51,14 @@
                         <svg class="success mt-1 ml-1 text-green-500" id="success-preventivo" width="36" height="36" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="9 11 12 14 20 6" />  <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
                     </div>
                 </div>
+                <p class="text-yellow-300 mt-2" id="error-preventivo"></p>
                 <!-- TERMINA EL PROCESO !-->
 
                 <!-- EMPIEZA EL PROCESO !-->
-                <label class="block mb-2 text-sm font-medium text-gray-400" for="fotos_observaciones">FOTOS DE LAS OBSERVACIONES </label>   
-                <div class="relative z-0 w-[110%] mb-5 group flex">
+                <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_observaciones">FOTOS DE LAS OBSERVACIONES </label>   
+                <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" name="fotos_observaciones[]" id="fotos_observaciones" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_observaciones[]" id="fotos_observaciones" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-observaciones"></p>
@@ -66,14 +67,15 @@
                         <svg class="success mt-1 ml-1 text-green-500" id="success-observaciones" width="36" height="36" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="9 11 12 14 20 6" />  <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
                     </div>
                 </div>
+                <p class="text-yellow-300 mt-2" id="error-observaciones"></p>
                 <!-- TERMINA EL PROCESO !-->
 
 
                 <!-- EMPIEZA EL PROCESO !-->
-                <label class="block mb-2 text-sm font-medium text-gray-400" for="fotos_boleta">FOTOS DE BOLETAS </label>   
-                <div class="relative z-0 w-[110%] mb-5 group flex">
+                <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_boleta">FOTOS DE BOLETAS </label>   
+                <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" name="fotos_boleta[]" id="fotos_boleta" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_boleta[]" id="fotos_boleta" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-boleta"></p>
@@ -82,13 +84,14 @@
                         <svg class="success mt-1 ml-1 text-green-500" id="success-boleta" width="36" height="36" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="9 11 12 14 20 6" />  <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
                     </div>
                 </div>
+                <p class="text-yellow-300 mt-2" id="error-boleta"></p>
                 <!-- TERMINA EL PROCESO !-->
 
                 <!-- EMPIEZA EL PROCESO !-->
-                <label class="block mb-2 text-sm font-medium text-gray-400" for="fotos_ot_combustible">FOTOS DE OT Y COMBUSTIBLE</label>   
-                <div class="relative z-0 w-[110%] mb-5 group flex">
+                <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_ot_combustible">FOTOS DE OT Y COMBUSTIBLE</label>   
+                <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" name="fotos_ot_combustible[]" id="fotos_ot_combustible" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_ot_combustible[]" id="fotos_ot_combustible" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-ot_combustible"></p>
@@ -97,13 +100,14 @@
                         <svg class="success mt-1 ml-1 text-green-500" id="success-ot_combustible" width="36" height="36" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="9 11 12 14 20 6" />  <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
                     </div>
                 </div>
+                <p class="text-yellow-300 mt-2" id="error-ot_combustible"></p>
                 <!-- TERMINA EL PROCESO !-->
 
                  <!-- EMPIEZA EL PROCESO !-->
-                 <label class="block mb-2 text-sm font-medium text-gray-400" for="fotos_planilla">FOTOS DE PLANILLA PREVENTIVO </label>   
-                 <div class="relative z-0 w-[110%] mb-5 group flex">
+                 <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_planilla">FOTOS DE PLANILLA PREVENTIVO </label>   
+                 <div class="relative z-0 w-[110%] group flex">
                      <div class="w-9/12 sm:w-9/12">
-                         <input type="file" name="fotos_planilla[]" id="fotos_planilla" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                         <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_planilla[]" id="fotos_planilla" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                      </div>
                      <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-planilla"></p>
@@ -112,6 +116,7 @@
                          <svg class="success mt-1 ml-1 text-green-500" id="success-planilla" width="36" height="36" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="9 11 12 14 20 6" />  <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
                      </div>
                  </div>
+                 <p class="text-yellow-300 mt-2" id="error-planilla"></p>
             
             </div>
         </div>
@@ -142,6 +147,8 @@
     document.querySelector('#fotos_preventivo').addEventListener("change", (e) => {
         const formData = new FormData();
         contadorPreventivo = TotalPreventivo = 0;
+        document.querySelector("#contador-preventivo").innerHTML = "";
+        document.querySelector("#error-preventivo").innerHTML = "";
         for (var i = 0; i < e.target.files.length; i++) {
             var file = e.target.files[i];
             if(file.name.length){
@@ -155,6 +162,8 @@
     document.querySelector('#fotos_observaciones').addEventListener("change", (e) => {
         const formData = new FormData();
         contadorObservaciones = TotalObservaciones = 0;
+        document.querySelector("#contador-observaciones").innerHTML = "";
+        document.querySelector("#error-observaciones").innerHTML = "";
         for (var i = 0; i < e.target.files.length; i++) {
             var file = e.target.files[i];
             if(file.name.length){
@@ -168,6 +177,8 @@
     document.querySelector('#fotos_boleta').addEventListener("change", (e) => {
         const formData = new FormData();
         contadorBoleta = TotalBoleta = 0;
+        document.querySelector("#contador-boleta").innerHTML = "";
+        document.querySelector("#error-boleta").innerHTML = "";
         for (var i = 0; i < e.target.files.length; i++) {
             var file = e.target.files[i];
             if(file.name.length){
@@ -181,6 +192,8 @@
     document.querySelector('#fotos_ot_combustible').addEventListener("change", (e) => {
         const formData = new FormData();
         contadorOtCombustible = TotalOtCombustible = 0;
+        document.querySelector("#contador-ot_combustible").innerHTML = "";
+        document.querySelector("#error-ot_combustible").innerHTML = "";
         for (var i = 0; i < e.target.files.length; i++) {
             var file = e.target.files[i];
             if(file.name.length){
@@ -194,6 +207,8 @@
     document.querySelector('#fotos_planilla').addEventListener("change", (e) => {
         const formData = new FormData();
         contadorPlanilla = TotalPlanilla = 0;
+        document.querySelector("#contador-planilla").innerHTML = "";
+        document.querySelector("#error-planilla").innerHTML = "";
         for (var i = 0; i < e.target.files.length; i++) {
             var file = e.target.files[i];
             if(file.name.length){
@@ -272,6 +287,25 @@
             const res = await fetch(url, opciones);
             const data = await res.json();
             console.log(data.message)
+            var err = document.querySelector("#error-"+idElementHtml);
+            err.innerHTML = "";
+            if (data.errors){
+                showSpinner("load-"+idElementHtml, false);
+                showSpinner("success-"+idElementHtml, false);
+                showSpinner("failed-"+idElementHtml, true);
+                if(data.errors.fotos_preventivo)
+                    err.innerHTML = data.errors.fotos_preventivo;
+                if(data.errors.fotos_observaciones)
+                    err.innerHTML = data.errors.fotos_observaciones;
+                if(data.errors.fotos_boleta)
+                    err.innerHTML = data.errors.fotos_boleta;
+                if(data.errors.fotos_ot_combustible)
+                    err.innerHTML = data.errors.fotos_ot_combustible;
+                if(data.errors.fotos_planilla)
+                    err.innerHTML = data.errors.fotos_planilla;
+                return
+            }
+
             if(data.message === "Archivo no recibido."){
                 showSpinner("load-"+idElementHtml, false);
                 showSpinner("success-"+idElementHtml, false);

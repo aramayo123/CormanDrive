@@ -3,6 +3,7 @@
 use App\Http\Controllers\OtController;
 use App\Http\Controllers\PreventivoController;
 use Carbon\Carbon;
+use App\Models\Ot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
@@ -97,6 +98,11 @@ Route::post('/download', function (Request $request) {
     */
     $folderPath = $request->folder;
     $zip = new Madzipper();
+    //if(!Storage::exists('storage/app/public/'.$folderPath)){
+    //    $remedit = Ot::findOrFail($request->id);
+    //    return view('ot.ver')->with(['remedit' => $remedit]);
+    //}
+
     $zip->make('zips/'.$request->remedit.'.zip')->addDir('storage/'.$folderPath);
     $url = asset(asset('zips/'.$request->remedit.'.zip'));
     return redirect($url);

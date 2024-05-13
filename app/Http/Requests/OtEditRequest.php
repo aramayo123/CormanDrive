@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OtRequest extends FormRequest
+class OtEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,15 +16,9 @@ class OtRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
-            'remedit' => 'required|unique:ots',
             'fecha_abierto' => 'required',
             'estado' =>  'required',
             'sucursal' => 'required',

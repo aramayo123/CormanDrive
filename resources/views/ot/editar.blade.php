@@ -11,7 +11,7 @@
         "113 CAFAYATE", "115 CACHI", "129 SAN ANTONIO DE LOS COBRES", "124 LAS LAJITAS",
         "106 JOAQUIN V. GONZALEZ", "105 TARTAGAL", "172 LOS TÁRTAGOS", "139 GENERAL MOSCONI", "128 AGUARAY",
         "108 POCITOS", "102 EMBARCACION", "116 PICHANAL", "103 ORAN",
-        "171 SAN RAMON", "117 COLONIA SANTA ROSA"
+        "171 SAN RAMON", "117 COLONIA SANTA ROSA", "153 A. SARAVIA"
     ];
     use App\Models\Personal;
     $personales = Personal::all();
@@ -55,7 +55,7 @@
                 @method('patch')
                 <div class="relative z-0 w-full mb-5 group flex ">
                     <div>
-                        <input type="text" name="remedit" id="remedit" value="{{ $remedit->remedit }}" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="remedit" id="remedit" value="{{ old('remedit',$remedit->remedit) }}" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <label for="remedit" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">REMEDIT</label>
                         @error('remedit')
                             <p class="pt-4 text-red-500">{{ $message }}</p>

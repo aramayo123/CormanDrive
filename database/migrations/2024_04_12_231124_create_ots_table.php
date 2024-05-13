@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('ots', function (Blueprint $table) {
             $table->id();
-            $table->string('remedit')->nullable();
+            $table->string('remedit')->nullable()->unique();
             $table->string('descripcion')->nullable();
             $table->string('elementos_afectados')->nullable();
             $table->string('acciones_ejecutadas')->nullable();

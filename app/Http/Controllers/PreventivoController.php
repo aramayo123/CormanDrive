@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PreventivoRequest;
 use App\Models\Preventivo;
 use App\Models\Personal;
-use App\Http\Requests\FotoRequest;
+use App\Http\Requests\PrevFotoRequest;
 use Illuminate\Support\Facades\Log;
 USE Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -68,7 +68,15 @@ class PreventivoController extends Controller
         $preventivo->certificado = $request->certificado ? $request->certificado:0;
         $preventivo->save();
 
-        return redirect()->route('index')->with('exito', 'Preventivo creado con exito!!');
+        $arr1 = str_split($preventivo->fecha);
+        $mesInt = $arr1[5].$arr1[6];
+        $meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", 
+                    "MAYO", "JUNIO", "JULIO", "AGOSTO", 
+                    "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+        $mesActual = $meses[intval($mesInt)-1];
+        $message = "El preventivo $preventivo->sucursal de $mesActual ha sido creado con exito!";
+
+        return redirect()->route('index')->with('exito', $message);
         //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
         //return view('preventivo.subir_fotos', ['message' => $message, 'sucursal' => $request->sucursal, 'mes' => $mesActual]);
     }
@@ -107,7 +115,15 @@ class PreventivoController extends Controller
         $preventivo->certificado = $request->certificado ? $request->certificado:0;
         $preventivo->update();
 
-        return redirect()->route('index')->with('exito', 'Preventivo modificado con exito!!');
+
+        $arr1 = str_split($preventivo->fecha);
+        $mesInt = $arr1[5].$arr1[6];
+        $meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", 
+                    "MAYO", "JUNIO", "JULIO", "AGOSTO", 
+                    "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+        $mesActual = $meses[intval($mesInt)-1];
+        $message = "El preventivo $preventivo->sucursal de $mesActual ha sido modificado con exito!";
+        return redirect()->route('index')->with('exito', $message);
         //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
         //return view('preventivo.subir_fotos', ['message' => $message, 'sucursal' => $request->sucursal, 'mes' => $mesActual]);
     }
@@ -128,37 +144,40 @@ class PreventivoController extends Controller
         Gdrive::deleteDir("PLANILLA PREVENTIVOS/".$mesActual."/".$preventivo->sucursal);
 
         Preventivo::destroy($id);
-        return redirect()->route('index')->with('eliminar_preventivo', 'ok');
+    
+        $message = "El preventivo $preventivo->sucursal de $mesActual ha sido eliminado con exito!";
+
+        return redirect()->route('index')->with('eliminar_preventivo', $message);
     }
-    public function FotosPreventivo(FotoRequest $request){
+    public function FotosPreventivo(PrevFotoRequest $request){
         if($request->hasFile('fotos_preventivo')){
             $this->GuardarFoto($request, "", "fotos_preventivo");
             return response()->json(['message' => 'Archivo agregado con exito.']);
         }
         return response()->json(['message' => 'Archivo no recibido.'], 400);
     }
-    public function FotosObervaciones(FotoRequest $request){
+    public function FotosObervaciones(PrevFotoRequest $request){
         if($request->hasFile('fotos_observaciones')){
             $this->GuardarFoto($request, "OBSERVACIONES", "fotos_observaciones");
             return response()->json(['message' => 'Archivo agregado con exito.']);
         }
         return response()->json(['message' => 'Archivo no recibido.'], 400);
     }
-    public function FotosBoleta(FotoRequest $request){
+    public function FotosBoleta(PrevFotoRequest $request){
         if($request->hasFile('fotos_boleta')){
             $this->GuardarFoto($request, "BOLETA", "fotos_boleta");
             return response()->json(['message' => 'Archivo agregado con exito.']);
         }
         return response()->json(['message' => 'Archivo no recibido.'], 400);
     }
-    public function FotosOtCombustible(FotoRequest $request){
+    public function FotosOtCombustible(PrevFotoRequest $request){
         if($request->hasFile('fotos_ot_combustible')){
             $this->GuardarFoto($request, "OT_COMBUSTIBLE", "fotos_ot_combustible");
             return response()->json(['message' => 'Archivo agregado con exito.']);
         }
         return response()->json(['message' => 'Archivo no recibido.'], 400);
     }
-    public function FotosPlanillaPreventivo(FotoRequest $request){
+    public function FotosPlanillaPreventivo(PrevFotoRequest $request){
         if($request->hasFile('fotos_planilla')){
             $this->GuardarFoto($request, "PLANILLA PREVENTIVO", "fotos_planilla");
             return response()->json(['message' => 'Archivo agregado con exito.']);

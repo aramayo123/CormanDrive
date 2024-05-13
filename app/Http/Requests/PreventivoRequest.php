@@ -33,8 +33,8 @@ class PreventivoRequest extends FormRequest
     {
         return [
             'fecha.required' => 'Añade una :attribute por favor',
-            'sucursal.required' => 'La :attribute es necesaria',
-            'cliente.required' => 'El :attribute es obligatorio',
+            'sucursal.required' => 'La sucursal es necesaria',
+            'cliente.required' => 'El cliente es obligatorio',
         ];
     }
 }

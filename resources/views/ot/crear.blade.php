@@ -11,7 +11,7 @@
         "113 CAFAYATE", "115 CACHI", "129 SAN ANTONIO DE LOS COBRES", "124 LAS LAJITAS",
         "106 JOAQUIN V. GONZALEZ", "105 TARTAGAL", "172 LOS TÁRTAGOS", "139 GENERAL MOSCONI", "128 AGUARAY",
         "108 POCITOS", "102 EMBARCACION", "116 PICHANAL", "103 ORAN",
-        "171 SAN RAMON", "117 COLONIA SANTA ROSA"
+        "171 SAN RAMON", "117 COLONIA SANTA ROSA", "153 A. SARAVIA"
     ];
     use App\Models\Personal;
     $personales = Personal::all();
@@ -38,6 +38,25 @@
             </div>
         @endif
        </div>
+       @if (count($errors))
+        <div class="mx-5 my-2">
+            <div id="alert-3" class="flex max-w-xl mx-auto items-center p-4 mb-4 text-red-400 rounded-lg bg-gray-800" role="alert">
+                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div class="ml-3 text-sm font-medium">
+                    <p>PARA FINALIZAR ES NECESARIO COMPLETAR TODOS LOS CAMPOS SOLICITADOS.</p>
+                </div>
+                <button type="button" class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 inline-flex items-center justify-center h-8 w-8 bg-gray-800 text-red-400 hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+       @endif
        <div class="mx-5 my-6">
             <div class="max-w-xl mx-auto my-6 rounded-lg bg-gray-800 p-6" >
                 <form action="{{ url('/ot/crear') }}" method="post">
@@ -45,7 +64,7 @@
                     <div class="relative z-0 w-full mb-5 group flex ">
                         <div>
                             <input type="text" name="remedit" id="remedit" value="{{ old('remedit') }}" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                            <label for="remedit" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">REMEDIT</label>
+                            <label for="remedit" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">REMEDIT <p class="inline-block text-red-500">*</p></label>
                             @error('remedit')
                                 <p class="pt-4 text-red-500">{{ $message }}</p>
                             @enderror
@@ -88,7 +107,7 @@
                     <div class="grid md:grid-cols-2 md:gap-6 pb-6 parte-1">
                         <div class="my-3">
                             <select id="cliente" name="cliente" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                                <option value="">SELECCIONAR CLIENTE</option>
+                                <option value="">SELECCIONAR CLIENTE <p class="inline-block text-red-500">*</p></option>
                                 <option selected value="B. MACRO" >BANCO MACRO</option>
                             </select>
                             @error('cliente')
@@ -97,7 +116,7 @@
                         </div>
                         <div class="my-3">
                             <select id="sucursal" name="sucursal" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                                <option selected value="">SELECCIONAR SUCURSAL</option>
+                                <option selected value="">SELECCIONAR SUCURSAL <p class="inline-block text-red-500">*</p></option>
                                 @foreach ($lista_sucursales as $sucursal)
                                     <option value="{{ $sucursal }}">{{ $sucursal }}</option>
                                 @endforeach
@@ -121,7 +140,7 @@
                         </ul>
                     </div>
                     <div class="estado mb-5 parte-1">      
-                        <h3 class="mb-4 text-sm text-gray-400">ESTADO</h3>
+                        <h3 class="mb-4 text-sm text-gray-400">ESTADO <p class="inline-block text-red-500">*</p></h3>
                         <select id="estado" name="estado" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                             <option selected value="">SELECCIONAR ESTADO</option>
                             <option value="ABIERTO">ABIERTO</option>
@@ -133,7 +152,7 @@
                         @enderror
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <h3 class="mb-4 text-sm text-gray-400">FECHA ABIERTO</h3>
+                        <h3 class="mb-4 text-sm text-gray-400">FECHA ABIERTO <p class="inline-block text-red-500">*</p></h3>
                         <input class="bg-gray-600 text-white rounded-lg w-full" type="date" id="start" name="fecha_abierto" value="{{ old('fecha_abierto') }}" min="2018-01-01" max="2050-12-31" />
                         @error('fecha_abierto')
                             <p class="pt-4 text-red-500">{{ $message }}</p>

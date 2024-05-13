@@ -206,6 +206,7 @@
                     @else
                       <input type="hidden" name="folder" value="OTS/COMBUSTIBLE/{{ $remedit->fecha_abierto }}">
                     @endif
+                    <input type="hidden" name="id" value="{{ $remedit->id }}">
                     <input type="hidden" name="remedit" value="{{ $remedit->remedit }}">
                     <button type="submit" class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
                       DESCARGAR
@@ -385,6 +386,7 @@
                     @else
                       <input type="hidden" name="folder" value="OTS/COMBUSTIBLE/{{ $remedit->fecha_abierto }}">
                     @endif
+                    <input type="hidden" name="id" value="{{ $remedit->id }}">
                     <input type="hidden" name="remedit" value="{{ $remedit->remedit }}">
                     <button type="submit" class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
                       DESCARGAR

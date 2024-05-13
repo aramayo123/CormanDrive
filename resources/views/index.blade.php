@@ -57,21 +57,21 @@
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@if (session('eliminar_preventivo') == 'ok')
-    <script>
+<script>
+    const message_ot = "{{ session('eliminar_ot') }}"
+    const message_prev = "{{ session('eliminar_ot') }}"
+    if(message_ot){
         Swal.fire({
             title: "Eliminado!",
-            text: "Su PREVENTIVO ha sido eliminado con exito!.",
+            text: message_ot,
             icon: "success"
         });
-    </script>
-@endif
-@if (session('eliminar_ot') == 'ok')
-    <script>
+    }
+    if(message_prev){
         Swal.fire({
             title: "Eliminado!",
-            text: "Su OT ha sido eliminado con exito!.",
+            text: message_prev,
             icon: "success"
         });
-    </script>
-@endif
+    }
+</script>

@@ -24,10 +24,19 @@ class FotoRequest extends FormRequest
     public function rules()
     {
         return [
-            //'foto_antes' => 'mimes:png,jpg',
-            //'foto_despues' => 'mimes:png,jpg',
-            //'foto_ot' => 'mimes:png,jpg',
-            //'foto_boleta' => 'mimes:png,jpg',
+            'foto_antes' => 'mimes:png,jpg,jpeg',
+            'foto_despues' => 'mimes:png,jpg,jpeg',
+            'foto_ot' => 'mimes:png,jpg,jpeg',
+            'foto_boleta' => 'mimes:png,jpg,jpeg',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'foto_antes.mimes' => 'La imagen debe estar en formato: <p class="inline-block text-red-500">PNG,JPG,JPEG</p>.',
+            'foto_despues.mimes' => 'La imagen debe estar en formato: <p class="inline-block text-red-500">PNG,JPG,JPEG</p>.',
+            'foto_ot.mimes' => 'La imagen debe estar en formato: <p class="inline-block text-red-500">PNG,JPG,JPEG</p>.',
+            'foto_boleta.mimes' => 'La imagen debe estar en formato: <p class="inline-block text-red-500">PNG,JPG,JPEG</p>.',
         ];
     }
 }

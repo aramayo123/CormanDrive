@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\OtRequest;
 use App\Http\Requests\FotoRequest;
+use App\Http\Requests\OtEditRequest;
 use App\Models\Ot;
 use App\Models\Personal;
 use Illuminate\Support\Facades\Response;
@@ -76,8 +77,8 @@ class OtController extends Controller
         $remedit->combustible = ($request->combustible) ? $request->combustible:0;
         $remedit->certificado = $request->certificado ? $request->certificado:0;
         $remedit->save();
-
-        return redirect()->route('index')->with('exito', 'Remedit creado con exito!!');
+        $message = "El ot $remedit->remedit ha sido creado con exito!";
+        return redirect()->route('index')->with('exito', $message);
         //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
         //return view('ot.subir_fotos', ['message' => $message, 'remedit' => $request->remedit, 'fecha' => $request->fecha_abierto]);
     }
@@ -132,9 +133,10 @@ class OtController extends Controller
 
         return $url;
     }
-    public function Update(OtRequest $request, $id)
+    public function Update(OtEditRequest $request, $id)
     {
         $remedit = Ot::findOrFail($id);
+        
         if($request->remedit != $remedit->remedit){
             // SI viene para combustible 
             if($request->combustible){
@@ -188,7 +190,9 @@ class OtController extends Controller
         $remedit->certificado = $request->certificado ? $request->certificado:0;
         $remedit->combustible = ($request->combustible) ? $request->combustible:0;
         $remedit->update();
-        return redirect()->route('index')->with('exito', 'Remedit modificado con exito!!');
+        
+        $message = "El ot $remedit->remedit ha sido creado con exito!";
+        return redirect()->route('index')->with('exito', $message);
         //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
         //return view('ot.subir_fotos', ['message' => $message, 'remedit' => $request->remedit, 'fecha' => $request->fecha_abierto]);
     }
@@ -200,8 +204,9 @@ class OtController extends Controller
 
         Gdrive::deleteDir("OTS/".$remedit->remedit);
 
+        $message = "El ot $remedit->remedit ha sido eliminado con exito!";
         Ot::destroy($id);
-        return redirect()->route('index')->with('eliminar_ot', 'ok');
+        return redirect()->route('index')->with('eliminar_ot', $message);
     }
     
     public function FotoAntes(FotoRequest $request){
