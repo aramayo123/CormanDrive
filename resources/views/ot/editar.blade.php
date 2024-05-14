@@ -63,8 +63,14 @@
                     </div>
                     <div class="text-center mx-auto">
                         <div class="flex items-center p-2 ml-6 mt-2 ">
-                            <input type="checkbox" <?php echo ($remedit->combustible) ? "checked":""; ?> value="1" id="combustible" name="combustible" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                            <input type="checkbox" <?php echo ($remedit->atm) ? "disabled":""; ?> <?php echo ($remedit->combustible) ? "checked":""; ?> value="1" id="combustible" name="combustible" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
                             <label for="combustible" class="ms-2 text-sm font-medium text-gray-300">CARGA DE COMBUSTIBLE</label>
+                        </div>
+                    </div>
+                    <div class="text-center mx-auto">
+                        <div class="flex items-center p-2 ml-6 mt-2 ">
+                            <input type="checkbox" <?php echo ($remedit->combustible) ? "disabled":""; ?> <?php echo ($remedit->atm) ? "checked":""; ?> value="1" id="atm" name="atm" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                            <label for="atm" class="ms-2 text-sm font-medium text-gray-300">ATM</label>
                         </div>
                     </div>
                 </div>

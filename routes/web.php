@@ -96,14 +96,19 @@ Route::post('/download', function (Request $request) {
         'url' => asset("storage/{$routeZip}"),
     ]);
     */
+    if(!Storage::exists("public/$request->folder")){
+        return response()->json([
+            'success' => 'ERROR',
+            'url' => 'La descarga no se pudo completar debido a que la carpeta no contiene archivos.',
+        ]);
+    }
     $folderPath = $request->folder;
     $zip = new Madzipper();
-    //if(!Storage::exists('storage/app/public/'.$folderPath)){
-    //    $remedit = Ot::findOrFail($request->id);
-    //    return view('ot.ver')->with(['remedit' => $remedit]);
-    //}
-
     $zip->make('zips/'.$request->remedit.'.zip')->addDir('storage/'.$folderPath);
     $url = asset(asset('zips/'.$request->remedit.'.zip'));
-    return redirect($url);
+    return response()->json([
+        'success' => 'Archivo ZIP creado y guardado correctamente.',
+        'url' => $url,
+    ]);
+    //return redirect($url);
 });

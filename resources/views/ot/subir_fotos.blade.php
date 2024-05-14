@@ -37,6 +37,7 @@
             <div class="max-w-full sm:max-w-lg mx-auto my-6 rounded-lg bg-gray-800 p-6" >
                 <input type="hidden" name="remedit" id="remedit" value="{{ $remedit }}" />
                 <input type="hidden" name="fecha" id="fecha" value="{{ $fecha }}" />
+                <input type="hidden" name="atm" id="atm" value="{{ $atm }}" />
 
                 <!-- EMPIEZA EL PROCESO !-->
                 <label class="block mb-2 text-sm font-medium text-gray-400" for="foto_antes">FOTOS DEL ANTES </label>   
@@ -127,6 +128,7 @@
     const rutaBase = "{{ env('APP_URL') }}";
     const remedit = document.querySelector('#remedit').value;
     const fecha = document.querySelector('#fecha').value;
+    const atm = document.querySelector('#atm').value;
     var contadorAntes, contadorDespues, contadorOt, contadorBoleta;
     var TotalAntes, TotalDespues, TotalOt, TotalBoleta;
     document.querySelector('#foto_antes').addEventListener("change", (e) => {
@@ -238,6 +240,7 @@
         try {
             formData.append("remedit", remedit);
             formData.append("fecha", fecha);
+            formData.append("atm", atm);
             const opciones = {
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),

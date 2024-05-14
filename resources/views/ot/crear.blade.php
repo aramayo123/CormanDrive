@@ -75,6 +75,12 @@
                                 <label for="combustible" class="ms-2 text-sm font-medium text-gray-300">CARGA DE COMBUSTIBLE</label>
                             </div>
                         </div>
+                        <div class="text-center mx-auto">
+                            <div class="flex items-center p-2 ml-6 mt-2 ">
+                                <input type="checkbox" value="1" id="atm" name="atm" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                                <label for="atm" class="ms-2 text-sm font-medium text-gray-300">ATM</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="relative z-0 w-full mb-5 group parte-1">
                         <input type="text" name="descripcion" id="descripcion" value="{{ old('descripcion') }}" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
@@ -190,6 +196,7 @@
 
 <script>
     var disabled = document.querySelector("#combustible");
+    var atm = document.querySelector("#atm");
     disabled.addEventListener("click", (event) => {
         var remedit = document.querySelector("#remedit"); 
         if(event.target.checked){
@@ -198,5 +205,13 @@
         }else{
             remedit.disabled = false;
         }
+        atm.checked = false;
     });
+    atm.addEventListener("click", (event) => {
+        var remedit = document.querySelector("#remedit"); 
+        remedit.disabled = false;
+        disabled.checked = false;
+    });
+    
+
 </script>

@@ -68,19 +68,26 @@ class OtController extends Controller
             Gdrive::makeDir('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
             $url = Storage::disk('google')->url('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
         }else{
-            Gdrive::makeDir('OTS/'.$remedit->remedit);
-            $url = Storage::disk('google')->url('OTS/'.$remedit->remedit);
+            if($request->atm){
+                Gdrive::makeDir('ATM/'.$remedit->remedit);
+                $url = Storage::disk('google')->url('ATM/'.$remedit->remedit);
+            }else{
+                Gdrive::makeDir('OTS/'.$remedit->remedit);
+                $url = Storage::disk('google')->url('OTS/'.$remedit->remedit);
+            }
         }
-
         $remedit->url_carpeta = $url;
         $remedit->estado = $request->estado;
         $remedit->combustible = ($request->combustible) ? $request->combustible:0;
         $remedit->certificado = $request->certificado ? $request->certificado:0;
+        $remedit->atm = $request->atm ? $request->atm:0;
         $remedit->save();
-        $message = "El ot $remedit->remedit ha sido creado con exito!";
+        if($remedit->atm)
+            $message = "El ATM $remedit->remedit ha sido creado con exito!";
+        else
+            $message = "El ot $remedit->remedit ha sido creado con exito!";
+
         return redirect()->route('index')->with('exito', $message);
-        //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
-        //return view('ot.subir_fotos', ['message' => $message, 'remedit' => $request->remedit, 'fecha' => $request->fecha_abierto]);
     }
     public function Editar($id){
         $remedit = Ot::findOrFail($id);
@@ -96,7 +103,7 @@ class OtController extends Controller
             }
         }
     }
-    private function RenameToFolder($remPost, $remAnt, $combustible = 0, $fecha = ""){
+    private function RenameToFolder($remPost, $remAnt, $combustible = 0, $fecha = "", $atm = 0){
         if($combustible){
             $dir = 'OTS/COMBUSTIBLE/'.$fecha;
             Gdrive::makeDir($dir);
@@ -104,39 +111,44 @@ class OtController extends Controller
             $folderIdOrigen = 'OTS/'.$remAnt; 
             $folderIdDestino = $dir;
         }else{
-            $dir = 'OTS/'.$remPost;
-            Gdrive::makeDir($dir);
-            $url = Storage::disk('google')->url($dir);
-            $folderIdOrigen = 'OTS/'.$remAnt; 
-            $folderIdDestino = $dir;
+            if($atm){
+                $dir = 'ATM/'.$remPost;
+                Gdrive::makeDir($dir);
+                $url = Storage::disk('google')->url($dir);
+                $folderIdOrigen = 'ATM/'.$remAnt; 
+                $folderIdDestino = $dir;
+            }else{
+                $dir = 'OTS/'.$remPost;
+                Gdrive::makeDir($dir);
+                $url = Storage::disk('google')->url($dir);
+                $folderIdOrigen = 'OTS/'.$remAnt; 
+                $folderIdDestino = $dir;
+            }
         }
-        //$data = [$dir, $url, $folderIdOrigen, $folderIdDestino];
-        //Log::debug($data);
         $archivos = Storage::disk('google')->listContents($folderIdOrigen, false);
         foreach ($archivos as $archivo) {
             if ($archivo['type'] === 'file') {
                 Storage::disk('google')->move($archivo['path'], $folderIdDestino . '/' . $archivo['extraMetadata']['name']);
             }else if($archivo['type'] === 'dir'){
-                $newDir = 'OTS/'.$remAnt.'/'.$archivo['extraMetadata']['name'];
+                if($atm)
+                    $newDir = 'ATM/'.$remAnt.'/'.$archivo['extraMetadata']['name'];
+                else
+                    $newDir = 'OTS/'.$remAnt.'/'.$archivo['extraMetadata']['name'];
+
                 Storage::disk('google')->makeDirectory($newDir);
                 $nuevoOrigen = $newDir;
                 $nuevoDestino = $dir.'/'.$archivo['extraMetadata']['name'];
-                
-                //$datas = [$nuevoOrigen, $nuevoDestino, $newDir];
-                //Log::debug($datas);
                 $this->MoverArchivos($nuevoOrigen, $nuevoDestino);
             }
         }
         Gdrive::deleteDir($folderIdOrigen);
         Storage::disk('local')->copy("public/".$folderIdOrigen,"public/".$folderIdDestino);
         Storage::disk('local')->move("public/".$folderIdOrigen,"public/".$folderIdDestino);
-
         return $url;
     }
     public function Update(OtEditRequest $request, $id)
     {
         $remedit = Ot::findOrFail($id);
-        
         if($request->remedit != $remedit->remedit){
             // SI viene para combustible 
             if($request->combustible){
@@ -151,13 +163,11 @@ class OtController extends Controller
                     $remedit->remedit = $request->remedit;
                 }else{
                     // NO viene para combustible
-                    $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit);
+                    $remedit->url_carpeta = $this->RenameToFolder($request->remedit, $remedit->remedit, 0, "asd", $remedit->atm);
                     $remedit->remedit = $request->remedit;
                 }
-                
             }
         }
-        
         $remedit->descripcion = $request->descripcion;
         $remedit->elementos_afectados = $request->elementos_afectados;
         $remedit->acciones_ejecutadas = $request->acciones_ejecutadas;
@@ -193,18 +203,26 @@ class OtController extends Controller
         
         $message = "El ot $remedit->remedit ha sido creado con exito!";
         return redirect()->route('index')->with('exito', $message);
-        //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
-        //return view('ot.subir_fotos', ['message' => $message, 'remedit' => $request->remedit, 'fecha' => $request->fecha_abierto]);
     }
     public function Borrar($id){
         $remedit = Ot::findOrFail($id);
-        $carpeta = "public/OTS/".$remedit->remedit;
+        if($remedit->atm)
+            $carpeta = "public/ATM/".$remedit->remedit;
+        else
+            $carpeta = "public/OTS/".$remedit->remedit;
         if(Storage::exists($carpeta))
             Storage::deleteDirectory($carpeta);
 
-        Gdrive::deleteDir("OTS/".$remedit->remedit);
+        if($remedit->atm)
+            Gdrive::deleteDir("ATM/".$remedit->remedit);
+        else
+            Gdrive::deleteDir("OTS/".$remedit->remedit);
+        
+        if($remedit->atm)
+            $message = "El atm $remedit->remedit ha sido eliminado con exito!";
+        else
+            $message = "El ot $remedit->remedit ha sido eliminado con exito!";
 
-        $message = "El ot $remedit->remedit ha sido eliminado con exito!";
         Ot::destroy($id);
         return redirect()->route('index')->with('eliminar_ot', $message);
     }
@@ -249,36 +267,37 @@ class OtController extends Controller
             else
                 $carpeta_local = "OTS/".$request->remedit."/".$request->fecha; 
         }else{
-            $carpeta = "OTS/".$request->remedit."/".$subcarpeta;
+            if($request->atm)
+                $carpeta = "ATM/".$request->remedit."/".$subcarpeta;
+            else
+                $carpeta = "OTS/".$request->remedit."/".$subcarpeta;
+
             if(strcasecmp($subcarpeta, 'BOLETA') == 0)
                 $carpeta_local = $carpeta;
             else
-                $carpeta_local = "OTS/".$request->remedit;
+                if($request->atm)
+                    $carpeta_local = "ATM/".$request->remedit;
+                else
+                    $carpeta_local = "OTS/".$request->remedit;
         }
-        
 
         $file = $request->file($input_file);
-        //$imagen = $file->store('public/'.$carpeta);
-        $imagen = $file->storeAs('public/'.$carpeta_local, time().'_'.$file->getClientOriginalName());
+        if(strcasecmp($subcarpeta, 'OT') == 0)
+            $imagen = $file->storeAs('public/'.$carpeta_local, 'ot '.$file->getClientOriginalName());
+        else
+            $imagen = $file->storeAs('public/'.$carpeta_local, time().'_'.$file->getClientOriginalName());
         $imagen = Storage::url($imagen);
 
         /** @var \Illuminate\Http\UploadedFile $disk */
         $disk = Storage::disk('google');
-        //$filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
         if(strcasecmp($subcarpeta, 'OT') == 0)
             $filename = 'ot '.$request->remedit.'.'.$file->getClientOriginalExtension();
         else
             $filename = time().'_'.$file->getClientOriginalName();
        
         $disk->putFileAs($carpeta, $file, $filename);
-        // $url = $disk->url($carpeta."/".$filename); // url de la imagen
-
-        //$partsCarpeta = explode('/', $carpeta);
-        //array_pop($partsCarpeta);
-        //$url = $disk->url(implode("/", $partsCarpeta)); // url de la imagen
-        //return $url;
     }
     public function UploadFotosOt(Request $request){
-        return view('ot.subir_fotos', ['remedit' => $request->remedit, 'fecha' => $request->fecha_abierto]);
+        return view('ot.subir_fotos', ['remedit' => $request->remedit, 'fecha' => $request->fecha_abierto, 'atm' => $request->atm]);
     }
 }

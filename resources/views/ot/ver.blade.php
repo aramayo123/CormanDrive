@@ -201,8 +201,10 @@
                 <div class="text-white p-2 mx-[1px] break-all w-full">
                   <form action="{{ url('/download') }}" method="post" id="form-ot">
                     @csrf
-                    @if (!$remedit->combustible)
+                    @if (!$remedit->combustible && !$remedit->atm)
                       <input type="hidden" name="folder" value="OTS/{{ $remedit->remedit }}">
+                    @elseif ($remedit->atm)
+                      <input type="hidden" name="folder" value="ATM/{{ $remedit->remedit }}">
                     @else
                       <input type="hidden" name="folder" value="OTS/COMBUSTIBLE/{{ $remedit->fecha_abierto }}">
                     @endif
@@ -379,10 +381,12 @@
 
               <div class="text-center mx-auto text-gray-400 text-sm uppercase">
                 <div class="text-white p-2 mx-[1px] break-all w-full">
-                  <form action="{{ url('/download') }}" method="post" id="form-ot">
+                  <form action="{{ url('/download') }}" method="post" id="form-ot-mobile">
                     @csrf
-                    @if (!$remedit->combustible)
+                    @if (!$remedit->combustible && !$remedit->atm)
                       <input type="hidden" name="folder" value="OTS/{{ $remedit->remedit }}">
+                    @elseif ($remedit->atm)
+                      <input type="hidden" name="folder" value="ATM/{{ $remedit->remedit }}">
                     @else
                       <input type="hidden" name="folder" value="OTS/COMBUSTIBLE/{{ $remedit->fecha_abierto }}">
                     @endif
@@ -397,14 +401,14 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      /*
-      const formulario = document.querySelector('#form-ot');
-      formulario.addEventListener('submit', (e) => {
-        e.preventDefault();
+      document.querySelector('#form-ot').addEventListener('submit', handleSubmit);
+      document.querySelector('#form-ot-mobile').addEventListener('submit', handleSubmit);
 
-        const formData = new FormData(formulario);
+      function handleSubmit (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
         const data = {};
         formData.forEach((value, key) => {
           data[key] = value;
@@ -416,10 +420,37 @@
             'Content-Type': 'application/json',
             'CSRF-Token': data['_token'],
           },
+          credentials: 'include',
           body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(({ url }) => {
+        .then(({ success, url }) => {
+          //displayData(success);
+          if(success === 'ERROR'){
+            Swal.fire({
+              title: `<p class="font-bold text-gray-500">ADVERTENCIA`,
+              html: `
+                <p class="font-bold text-xl text-gray-500">${url}</p>
+              `,
+              icon: "warning",
+              showClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeInUp
+                  animate__faster
+                `
+              },
+              hideClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `
+              },
+              confirmButtonColor: "#3085d6",
+            });
+            return 
+          }
           const a = document.createElement('a');
           a.href = url;
           a.download;
@@ -430,8 +461,7 @@
           console.error('Error:', error);
         });
 
-      });
-      */
+      }
     </script>
 </body>
 

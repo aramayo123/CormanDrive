@@ -135,6 +135,8 @@
                                         value="{{ $remedit->remedit }}">
                                     <input type="hidden" name="fecha_abierto" id=""
                                         value="{{ $remedit->fecha_abierto }}">
+                                    <input type="hidden" name="atm" id=""
+                                            value="{{ $remedit->atm }}">
                                     <button type="submit"
                                         class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                                         fotos</button>
@@ -342,6 +344,8 @@
                                 value="${ remedit.remedit }">
                             <input type="hidden" name="fecha_abierto" id=""
                                 value="${ remedit.fecha_abierto }">
+                            <input type="hidden" name="atm" id=""
+                                value="${ remedit.atm }">
                             <button type="submit"
                             class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                                 fotos</button>
@@ -477,6 +481,8 @@
                             value="${ remedit.remedit }">
                         <input type="hidden" name="fecha_abierto" id=""
                             value="${ remedit.fecha_abierto }">
+                        <input type="hidden" name="atm" id=""
+                            value="${ remedit.atm }">
                         <button type="submit"
                         class="text-white focus:ring-4 font-medium rounded-lg text-xs px-3 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Subir
                             fotos</button>

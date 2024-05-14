@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('presupuesto')->nullable();
             $table->integer('combustible')->nullable();
             $table->integer('certificado')->nullable();
+            $table->integer('atm')->nullable();
             $table->timestamps();
         });
     }

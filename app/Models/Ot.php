@@ -27,5 +27,6 @@ class Ot extends Model
         'presupuesto',
         'combustible',
         'certificado',
+        'atm',
     ];
 }

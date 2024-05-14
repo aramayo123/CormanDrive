@@ -77,8 +77,6 @@ class PreventivoController extends Controller
         $message = "El preventivo $preventivo->sucursal de $mesActual ha sido creado con exito!";
 
         return redirect()->route('index')->with('exito', $message);
-        //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
-        //return view('preventivo.subir_fotos', ['message' => $message, 'sucursal' => $request->sucursal, 'mes' => $mesActual]);
     }
     public function Editar($id){
         $preventivo = Preventivo::findOrFail($id);
@@ -124,8 +122,6 @@ class PreventivoController extends Controller
         $mesActual = $meses[intval($mesInt)-1];
         $message = "El preventivo $preventivo->sucursal de $mesActual ha sido modificado con exito!";
         return redirect()->route('index')->with('exito', $message);
-        //$message = 'NO RECARGUE LA PAGINA NI SE SALGA HASTA TERMINAR DE SUBIR LAS IMAGENES';
-        //return view('preventivo.subir_fotos', ['message' => $message, 'sucursal' => $request->sucursal, 'mes' => $mesActual]);
     }
     public function Borrar($id){
         $preventivo = Preventivo::findOrFail($id);
@@ -135,18 +131,12 @@ class PreventivoController extends Controller
                     "MAYO", "JUNIO", "JULIO", "AGOSTO", 
                     "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
         $mesActual = $meses[intval($mesInt)-1];
-
         $carpeta = "public/PLANILLA PREVENTIVOS/".$mesActual."/".$preventivo->sucursal;
-
         if(Storage::exists($carpeta))
             Storage::deleteDirectory($carpeta);
-
         Gdrive::deleteDir("PLANILLA PREVENTIVOS/".$mesActual."/".$preventivo->sucursal);
-
         Preventivo::destroy($id);
-    
         $message = "El preventivo $preventivo->sucursal de $mesActual ha sido eliminado con exito!";
-
         return redirect()->route('index')->with('eliminar_preventivo', $message);
     }
     public function FotosPreventivo(PrevFotoRequest $request){
@@ -197,12 +187,6 @@ class PreventivoController extends Controller
         $disk = Storage::disk('google');
         $filename = time().'_'.$file->getClientOriginalName();
         $disk->putFileAs($carpeta, $file, $filename);
-        // $url = $disk->url($carpeta."/".$filename); // url de la imagen
-
-        //$partsCarpeta = explode('/', $carpeta);
-        //array_pop($partsCarpeta);
-        //$url = $disk->url(implode("/", $partsCarpeta)); // url de la imagen
-        //return $url;
     }
     public function UploadFotosPreventivos(Request $request){
         $arr1 = str_split($request->fecha);
