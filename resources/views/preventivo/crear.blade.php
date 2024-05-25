@@ -3,7 +3,7 @@
         "100 SALTA", "100 SELECTA", "127 PLAZA EMPRESAS", "100 IPDUV", 
         "100 RENTAS SALTA", "100 ALVARADO", "109 ESPAÑA", "811 CALL CENTER", "110 MALVINAS ARGENTINAS",
         "136 LIMACHE", "100 UCASAL", "133 ALTO NOA SHOPPING",
-        "137 CIUDAD DEL MILAGRO", "120 BATALLA DE SALTA",
+        "137 CIUDAD DEL MILAGRO", "120 BATALLA DE SALTA", "BCRA",
         "130 PELEGRINI", "114 NORTE", "149 TERMINAL", "152 CIUDAD MUNICIPAL", "151 CIUDAD JUDICIAL",
         "174 TRIBUNALES", "170 PLAZA BELGRANO", "109 EL PUNTO", "173 GRAND BOURG",
         "175 SAN LORENZO", "121 CERRILLOS", "125 ROSARIO DE LA LERMA", "109 CO.PRO.TAB",
@@ -72,7 +72,7 @@
                         <select id="sucursal" name="sucursal" class="mt-3 md:mt-0 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                             <option selected value="">SELECCIONAR SUCURSAL <p class="inline-block text-red-500">*</p></option>
                             @foreach ($lista_sucursales as $sucursal)
-                                <option value="{{ $sucursal }}">{{ $sucursal }}</option>
+                            <option <?php echo old('sucursal') == $sucursal ? "selected":""; ?> value="{{ $sucursal }}">{{ $sucursal }}</option>
                             @endforeach
                         </select>
                         @error('sucursal')

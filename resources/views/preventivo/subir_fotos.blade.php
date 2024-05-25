@@ -42,7 +42,7 @@
                 <label class="block mb-2 text-sm font-medium text-gray-400" for="fotos_preventivo">FOTOS DEL PREVENTIVO </label>   
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_preventivo[]" id="fotos_preventivo" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg,video/mp4,video/x-m4v,video/*" name="fotos_preventivo[]" id="fotos_preventivo" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-preventivo"></p>
@@ -58,7 +58,7 @@
                 <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_observaciones">FOTOS DE LAS OBSERVACIONES </label>   
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_observaciones[]" id="fotos_observaciones" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg,video/mp4,video/x-m4v,video/*" name="fotos_observaciones[]" id="fotos_observaciones" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-observaciones"></p>
@@ -75,7 +75,7 @@
                 <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_boleta">FOTOS DE BOLETAS </label>   
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_boleta[]" id="fotos_boleta" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg,video/mp4,video/x-m4v,video/*" name="fotos_boleta[]" id="fotos_boleta" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-boleta"></p>
@@ -91,7 +91,7 @@
                 <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_ot_combustible">FOTOS DE OT Y COMBUSTIBLE</label>   
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_ot_combustible[]" id="fotos_ot_combustible" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                        <input type="file" accept="image/png, image/gif, image/jpeg,video/mp4,video/x-m4v,video/*" name="fotos_ot_combustible[]" id="fotos_ot_combustible" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-ot_combustible"></p>
@@ -107,7 +107,7 @@
                  <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="fotos_planilla">FOTOS DE PLANILLA PREVENTIVO </label>   
                  <div class="relative z-0 w-[110%] group flex">
                      <div class="w-9/12 sm:w-9/12">
-                         <input type="file" accept="image/png, image/gif, image/jpeg" name="fotos_planilla[]" id="fotos_planilla" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
+                         <input type="file" accept="image/png, image/gif, image/jpeg,video/mp4,video/x-m4v,video/*" name="fotos_planilla[]" id="fotos_planilla" multiple class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400">
                      </div>
                      <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-planilla"></p>

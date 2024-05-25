@@ -21,7 +21,7 @@ class OtEditRequest extends FormRequest
         return [
             'fecha_abierto' => 'required',
             'estado' =>  'required',
-            'sucursal' => 'required',
+            'sucursal' => 'required_without_all:atm',
             'cliente' => 'required',
         ];
     }
@@ -41,6 +41,7 @@ class OtEditRequest extends FormRequest
             'estado.required' => 'El estado del remedy es obligatorio',
             'sucursal.required' => 'La sucursal es obligatoria',
             'cliente.required' => 'El cliente es obligatorio',
+            'sucursal.required_without_all' => 'La sucursal es obligatoria',
         ];
     }
 }

@@ -3,7 +3,7 @@
         "100 SALTA", "100 SELECTA", "127 PLAZA EMPRESAS", "100 IPDUV", 
         "100 RENTAS SALTA", "100 ALVARADO", "109 ESPAÑA", "811 CALL CENTER", "110 MALVINAS ARGENTINAS",
         "136 LIMACHE", "100 UCASAL", "133 ALTO NOA SHOPPING",
-        "137 CIUDAD DEL MILAGRO", "120 BATALLA DE SALTA",
+        "137 CIUDAD DEL MILAGRO", "120 BATALLA DE SALTA", "BCRA",
         "130 PELEGRINI", "114 NORTE", "149 TERMINAL", "152 CIUDAD MUNICIPAL", "151 CIUDAD JUDICIAL",
         "174 TRIBUNALES", "170 PLAZA BELGRANO", "109 EL PUNTO", "173 GRAND BOURG",
         "175 SAN LORENZO", "121 CERRILLOS", "125 ROSARIO DE LA LERMA", "109 CO.PRO.TAB",
@@ -53,7 +53,7 @@
             <form method="post" action="{{ url('ot/editar/'.$remedit->id) }}" class="max-w-xl mx-auto my-6 rounded-lg bg-gray-800 p-6" >
                 @csrf
                 @method('patch')
-                <div class="relative z-0 w-full mb-5 group flex ">
+                <div class="relative z-0 w-full mb-5 group grid grid-cols-1 sm:grid-cols-3 ">
                     <div>
                         <input type="text" name="remedit" id="remedit" value="{{ old('remedit',$remedit->remedit) }}" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <label for="remedit" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">REMEDIT</label>

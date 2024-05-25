@@ -43,7 +43,7 @@
                 <label class="block mb-2 text-sm font-medium text-gray-400" for="foto_antes">FOTOS DEL ANTES </label>   
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="foto_antes[]" id="foto_antes" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple>
+                        <input type="file" accept="image/png, image/gif, image/jpeg, video/mp4,video/x-m4v,video/*" name="foto_antes[]" id="foto_antes" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple>
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-antes"></p>
@@ -59,7 +59,7 @@
                 <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="foto_despues">FOTOS DEL DESPUES </label>
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="foto_despues[]" id="foto_despues" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple> 
+                        <input type="file" accept="image/png, image/gif, image/jpeg, video/mp4,video/x-m4v,video/*" name="foto_despues[]" id="foto_despues" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple> 
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-despues"></p>
@@ -76,7 +76,7 @@
                 <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="foto_ot">FOTOS DE OT </label>
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="foto_ot[]" id="foto_ot" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple>
+                        <input type="file" accept="image/png, image/gif, image/jpeg, video/mp4,video/x-m4v,video/*" name="foto_ot[]" id="foto_ot" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple>
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-ot"></p>
@@ -92,7 +92,7 @@
                 <label class="mt-5 block mb-2 text-sm font-medium text-gray-400" for="foto_boleta">FOTOS DE BOLETA </label>
                 <div class="relative z-0 w-[110%] group flex">
                     <div class="w-9/12 sm:w-9/12">
-                        <input type="file" accept="image/png, image/gif, image/jpeg" name="foto_boleta[]" id="foto_boleta" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple>
+                        <input type="file" accept="image/png, image/gif, image/jpeg, video/mp4,video/x-m4v,video/*" name="foto_boleta[]" id="foto_boleta" class="block w-full text-sm border rounded-lg cursor-pointer text-white focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" multiple>
                     </div>
                     <div class="flex"> 
                         <p class="ml-2 mt-2 text-white" id="contador-boleta"></p>

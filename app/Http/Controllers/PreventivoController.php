@@ -63,6 +63,10 @@ class PreventivoController extends Controller
         $mesActual = $meses[intval($mesInt)-1];
 
         Gdrive::makeDir('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal);
+        Gdrive::makeDir('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal."/OBSERVACIONES");
+        Gdrive::makeDir('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal."/BOLETA");
+        Gdrive::makeDir('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal."/OT_COMBUSTIBLE");
+        Gdrive::makeDir('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal."/PLANILLA PREVENTIVO");
         $url = Storage::disk('google')->url('PLANILLA PREVENTIVOS/'.$mesActual."/".$request->sucursal);
         $preventivo->url_carpeta = $url;
         $preventivo->certificado = $request->certificado ? $request->certificado:0;

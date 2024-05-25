@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OtRequest extends FormRequest
 {
@@ -24,10 +25,10 @@ class OtRequest extends FormRequest
     public function rules()
     {
         return [
-            'remedit' => 'required|unique:ots',
+            'remedit' => 'required_without_all:combustible|unique:ots',
             'fecha_abierto' => 'required',
             'estado' =>  'required',
-            'sucursal' => 'required',
+            'sucursal' => 'required_without_all:atm',
             'cliente' => 'required',
         ];
     }
@@ -47,6 +48,8 @@ class OtRequest extends FormRequest
             'estado.required' => 'El estado del remedy es obligatorio',
             'sucursal.required' => 'La sucursal es obligatoria',
             'cliente.required' => 'El cliente es obligatorio',
+            'sucursal.required_without_all' => 'La sucursal es obligatoria',
+            'remedit.required_without_all' => 'El remedy es obligatorio',
         ];
     }
 }

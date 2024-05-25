@@ -64,18 +64,21 @@ class OtController extends Controller
         $remedit->fecha_abierto = $request->fecha_abierto;
         $remedit->fecha_cerrado = $request->fecha_cerrado;
         
-        if($request->combustible){
-            Gdrive::makeDir('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
-            $url = Storage::disk('google')->url('OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto);
-        }else{
-            if($request->atm){
-                Gdrive::makeDir('ATM/'.$remedit->remedit);
-                $url = Storage::disk('google')->url('ATM/'.$remedit->remedit);
-            }else{
-                Gdrive::makeDir('OTS/'.$remedit->remedit);
-                $url = Storage::disk('google')->url('OTS/'.$remedit->remedit);
-            }
-        }
+        if($request->combustible)
+            $folder = 'OTS/'.$remedit->remedit.'/'.$remedit->fecha_abierto;
+        else
+            if($request->atm)
+                $folder = 'ATM/'.$remedit->remedit;
+            else
+                $folder = 'OTS/'.$remedit->remedit;
+
+        Gdrive::makeDir($folder);
+        Gdrive::makeDir("$folder/ANTES");
+        Gdrive::makeDir("$folder/DESPUES");
+        Gdrive::makeDir("$folder/BOLETA");
+        Gdrive::makeDir("$folder/OT");
+        $url = Storage::disk('google')->url($folder);
+
         $remedit->url_carpeta = $url;
         $remedit->estado = $request->estado;
         $remedit->combustible = ($request->combustible) ? $request->combustible:0;
@@ -150,6 +153,15 @@ class OtController extends Controller
     {
         $remedit = Ot::findOrFail($id);
         if($request->remedit != $remedit->remedit){
+            $validated = $request->validate(
+                [
+                    'remedit' => 'required_without_all:combustible|unique:ots',
+                ],
+                [
+                    'remedit.required_without_all' => 'El remedy es obligatorio',
+                    'remedit.unique' => 'El remedy ya existe.',
+                ]
+            );
             // SI viene para combustible 
             if($request->combustible){
                 // NO estaba antes como combustible
@@ -283,10 +295,11 @@ class OtController extends Controller
 
         $file = $request->file($input_file);
         if(strcasecmp($subcarpeta, 'OT') == 0)
-            $imagen = $file->storeAs('public/'.$carpeta_local, 'ot '.$file->getClientOriginalName());
+            $imagen = $file->storeAs('public/'.$carpeta_local, 'ot '.$request->remedit.'.'.$file->getClientOriginalExtension());
         else
             $imagen = $file->storeAs('public/'.$carpeta_local, time().'_'.$file->getClientOriginalName());
         $imagen = Storage::url($imagen);
+
 
         /** @var \Illuminate\Http\UploadedFile $disk */
         $disk = Storage::disk('google');

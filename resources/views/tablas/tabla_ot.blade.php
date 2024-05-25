@@ -81,7 +81,7 @@
                                         class="sr-only">checkbox</label>
                                 </div>
                             </td>
-                            <th scope="row" class="px-3 py-4 font-medium whitespace-nowrap text-white">
+                            <th scope="row" class="px-3 py-4 font-medium whitespace-wrap text-white">
                                 {{ $remedit->remedit }}
                             </th>
                             <td class="px-3 py-4">
@@ -315,7 +315,7 @@
                                 class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <th scope="row" class="px-3 py-4 font-medium whitespace-nowrap text-white">
+                    <th scope="row" class="px-3 py-4 font-medium whitespace-wrap text-white">
                         ${ remedit.remedit }
                     </th>
                     <td class="px-3 py-4">
@@ -448,7 +448,7 @@
                             class="sr-only">checkbox</label>
                     </div>
                 </td>
-                <th scope="row" class="px-3 py-4 font-medium whitespace-nowrap text-white">
+                <th scope="row" class="px-3 py-4 font-medium whitespace-wrap text-white">
                     ${ remedit.remedit }
                 </th>
                 <td class="px-3 py-4">

@@ -3,7 +3,7 @@
         "100 SALTA", "100 SELECTA", "127 PLAZA EMPRESAS", "100 IPDUV", 
         "100 RENTAS SALTA", "100 ALVARADO", "109 ESPAÑA", "811 CALL CENTER", "110 MALVINAS ARGENTINAS",
         "136 LIMACHE", "100 UCASAL", "133 ALTO NOA SHOPPING",
-        "137 CIUDAD DEL MILAGRO", "120 BATALLA DE SALTA",
+        "137 CIUDAD DEL MILAGRO", "120 BATALLA DE SALTA", "BCRA",
         "130 PELEGRINI", "114 NORTE", "149 TERMINAL", "152 CIUDAD MUNICIPAL", "151 CIUDAD JUDICIAL",
         "174 TRIBUNALES", "170 PLAZA BELGRANO", "109 EL PUNTO", "173 GRAND BOURG",
         "175 SAN LORENZO", "121 CERRILLOS", "125 ROSARIO DE LA LERMA", "109 CO.PRO.TAB",
@@ -61,7 +61,7 @@
             <div class="max-w-xl mx-auto my-6 rounded-lg bg-gray-800 p-6" >
                 <form action="{{ url('/ot/crear') }}" method="post">
                     @csrf
-                    <div class="relative z-0 w-full mb-5 group flex ">
+                    <div class="relative z-0 w-full mb-5 group grid grid-cols-1 sm:grid-cols-3 ">
                         <div>
                             <input type="text" name="remedit" id="remedit" value="{{ old('remedit') }}" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                             <label for="remedit" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">REMEDIT <p class="inline-block text-red-500">*</p></label>
@@ -71,13 +71,13 @@
                         </div>
                         <div class="text-center mx-auto">
                             <div class="flex items-center p-2 ml-6 mt-2 ">
-                                <input type="checkbox" value="1" id="combustible" name="combustible" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                                <input type="checkbox" <?php echo old('combustible') ? "checked":""; ?> value="1" id="combustible" name="combustible" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
                                 <label for="combustible" class="ms-2 text-sm font-medium text-gray-300">CARGA DE COMBUSTIBLE</label>
                             </div>
                         </div>
                         <div class="text-center mx-auto">
                             <div class="flex items-center p-2 ml-6 mt-2 ">
-                                <input type="checkbox" value="1" id="atm" name="atm" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                                <input type="checkbox" <?php echo old('atm') ? "checked":""; ?> value="1" id="atm" name="atm" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
                                 <label for="atm" class="ms-2 text-sm font-medium text-gray-300">ATM</label>
                             </div>
                         </div>
@@ -120,11 +120,11 @@
                                 <p class="text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="my-3">
-                            <select id="sucursal" name="sucursal" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                        <div class="my-3" id="sucursal">
+                            <select name="sucursal" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                                 <option selected value="">SELECCIONAR SUCURSAL <p class="inline-block text-red-500">*</p></option>
                                 @foreach ($lista_sucursales as $sucursal)
-                                    <option value="{{ $sucursal }}">{{ $sucursal }}</option>
+                                    <option <?php echo old('sucursal') == $sucursal ? "selected":""; ?> value="{{ $sucursal }}">{{ $sucursal }}</option>
                                 @endforeach
                             </select>
                             @error('sucursal')
@@ -138,7 +138,7 @@
                             @foreach ($personales as $personal)
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r border-gray-600">
                                     <div class="flex items-center ps-3">
-                                        <input id="{{ $personal->nombre_personal }}" type="checkbox" name="{{ $personal->valor }}" value="{{ $personal->nombre_personal }}" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2 bg-gray-600 border-gray-500">
+                                        <input id="{{ $personal->nombre_personal }}" type="checkbox" <?php echo old($personal->valor) ? "checked":""; ?> name="{{ $personal->valor }}" value="{{ $personal->nombre_personal }}" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-700 focus:ring-offset-gray-700 focus:ring-2 bg-gray-600 border-gray-500">
                                         <label for="{{ $personal->nombre_personal }}" class="w-full py-3 ms-2 font-medium text-gray-300">{{ $personal->nombre_personal }}</label>
                                     </div>
                                 </li>
@@ -149,9 +149,9 @@
                         <h3 class="mb-4 text-sm text-gray-400">ESTADO <p class="inline-block text-red-500">*</p></h3>
                         <select id="estado" name="estado" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                             <option selected value="">SELECCIONAR ESTADO</option>
-                            <option value="ABIERTO">ABIERTO</option>
-                            <option value="CERRADO">CERRADO</option>
-                            <option value="PENDIENTE">PENDIENTE</option>
+                            <option <?php echo old('estado') == "ABIERTO" ? "selected":""; ?> value="ABIERTO">ABIERTO</option>
+                            <option <?php echo old('estado') == "CERRADO" ? "selected":""; ?> value="CERRADO">CERRADO</option>
+                            <option <?php echo old('estado') == "PENDIENTE" ? "selected":""; ?> value="PENDIENTE">PENDIENTE</option>
                         </select>
                         @error('estado')
                             <p class="pt-4 text-red-500">{{ $message }}</p>
@@ -180,7 +180,7 @@
                     </div>
                     <div class="text-center mx-auto my-6">
                         <div class="flex items-center justify-center">
-                            <input type="checkbox" value="1" id="certificado" name="certificado" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+                            <input type="checkbox" <?php echo old('certificado') ? "checked":""; ?> value="1" id="certificado" name="certificado" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
                             <label for="certificado" class="ms-2 text-sm font-medium text-gray-300">CERTIFICADO</label>
                         </div>
                     </div>
@@ -195,10 +195,26 @@
 </html>
 
 <script>
+   
     var disabled = document.querySelector("#combustible");
     var atm = document.querySelector("#atm");
+    var remedit = document.querySelector("#remedit"); 
+    var sucursal = document.querySelector("#sucursal");
+    document.addEventListener('DOMContentLoaded', function() {
+        if(atm.checked)
+            sucursal.style.display = "none";
+        else
+            sucursal.style.display = "block";
+
+        if(disabled.checked){
+            remedit.disabled = true;
+            remedit.value = "";
+        }else{
+            remedit.disabled = false;
+        }
+    });
+
     disabled.addEventListener("click", (event) => {
-        var remedit = document.querySelector("#remedit"); 
         if(event.target.checked){
             remedit.disabled = true;
             remedit.value = "";
@@ -206,11 +222,17 @@
             remedit.disabled = false;
         }
         atm.checked = false;
+        sucursal.style.display = "block";
     });
     atm.addEventListener("click", (event) => {
-        var remedit = document.querySelector("#remedit"); 
+        if(event.target.checked)
+            sucursal.style.display = "none";
+        else
+            sucursal.style.display = "block";
+
         remedit.disabled = false;
         disabled.checked = false;
+
     });
     
 
